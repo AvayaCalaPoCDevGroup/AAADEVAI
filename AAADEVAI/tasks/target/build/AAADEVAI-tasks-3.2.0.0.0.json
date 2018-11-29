@@ -1,0 +1,209 @@
+﻿{
+  "name": "My Tasks-from-com.avaya.AAADEVAI",
+  "categories":
+[
+  {
+        "name": "AAAAI",
+        "mTypes": 
+         [
+            {
+                "name": "AAA Tranductor",
+                "snapinVersion": "3.0",
+				"displayName": "Traductor",
+                "tag": "AAADEVAI_TRADUCTOR",
+                "svg": "translation",
+                "helpUrl": "traductor.html",
+                "tile": "gold",
+                "serviceName": "CollabDesigner",
+                "custom": "true",
+                "nodeType": "activity",
+                "modelClass": "com.avaya.AAADEVAI.TraductorModel",
+                "executionClass": "com.avaya.AAADEVAI.TraductorExecution",
+				"mapping": "[\"input\", \"output\"]",
+                "properties": [
+                		{
+                            "name": "texto",
+                            "displayPropName": "Texto",
+                            "type": "String",
+                            "controlType": "text",
+                            "modelName": "setTexto",
+                            "mapping":"texto"
+                        },
+                        {
+                            "name": "modelid",
+                            "displayPropName": "Model Id",
+                            "type": "String",
+                            "controlType": "text",
+                            "modelName": "setModelId",
+                            "mapping":"modelid"
+                        },
+                        {
+                            "name": "apikey",
+                            "displayPropName": "Api Key",
+                            "type": "String",
+                            "controlType": "password",
+                            "modelName": "setApiKey",
+                            "mapping":"apikey"
+                        }
+                ],
+	        "input_schema": "{
+			        title: InputSchema,
+			        type: object,
+			        properties: {
+			            texto: {
+			                type: string
+			            }
+
+			        }
+	        }",
+                "output_schema": "{
+                        title: OutputSchema,
+                        type: object,
+                        properties: {
+                            status: {
+                                type: string
+                            },
+                            traduccion:{
+                            	type: string
+                            }
+                        }
+                }"
+            },{
+            "name": "AAA Emociones",
+            "snapinVersion": "3.0",
+            "displayName": "Emociones",
+            "tag": "AAADEVAI_Emotions",
+            "svg": "theatremask",
+            "helpUrl": "emocion.html",
+            "tile": "green",
+            "serviceName": "CollabDesigner",
+            "custom": "true",
+            "nodeType": "activity",
+            "modelClass": "com.avaya.AAADEVAI.EmocionesModel",
+            "executionClass": "com.avaya.AAADEVAI.EmocionesExecution",
+            "mapping": "[\"input\", \"output\"]",
+            "properties": [
+                {
+                    "name": "textEmociones",
+                    "displayPropName": "Texto",
+                    "type": "String",
+                    "controlType": "text",
+                    "modelName": "setTextEmociones",
+                    "mapping":"textEmociones"
+                },
+                {
+                    "name": "userNameEmociones",
+                    "displayPropName": "User Name",
+                    "type": "String",
+                    "controlType": "text",
+                    "modelName": "setUserNameEmociones",
+                    "mapping":"userNameEmociones"
+                },
+                {
+                    "name": "passwordEmociones",
+                    "displayPropName": "Password",
+                    "type": "String",
+                    "controlType": "password",
+                    "modelName": "setPasswordEmociones",
+                    "mapping":"userNameEmociones"
+                }
+            ],
+            "input_schema": "{
+                  title: InputSchemaEmociones,
+                  type: object,
+                  properties: {
+                    textEmociones: {
+                          type: string
+                }
+            }
+        }",
+              "output_schema": "{
+                      title: OutputSchema,
+                      type: object,
+                      properties: {
+                          status: {
+                              type: string
+           	 			},
+           	 			emociones:{
+           	 			type: string
+           	 			}
+        }
+    }"
+},
+{
+    "name": "AAA Assistant",
+    "snapinVersion": "3.0",
+    "displayName": "Assistant",
+    "tag": "AAADEVAI_Assistant",
+    "svg": "connection",
+    "helpUrl": "assistant.html",
+    "tile": "red",
+    "serviceName": "CollabDesigner",
+    "custom": "true",
+    "nodeType": "activity",
+    "modelClass": "com.avaya.AAADEVAI.AssistantModel",
+    "executionClass": "com.avaya.AAADEVAI.AssistantExecution",
+    "mapping": "[\"input\", \"output\"]",
+    "properties": [
+        {
+            "name": "textAssistant",
+            "displayPropName": "Texto",
+            "type": "String",
+            "controlType": "text",
+            "modelName": "setTextAssistant",
+            "mapping":"textAssistant"
+        },
+        {
+            "name": "userNameAssistant",
+            "displayPropName": "User Name",
+            "type": "String",
+            "controlType": "text",
+            "modelName": "setUserNameAssistant",
+            "mapping":"userNameAssistant"
+        },
+        {
+            "name": "passwordAssistant",
+            "displayPropName": "Password",
+            "type": "String",
+            "controlType": "password",
+            "modelName": "setPasswordAssistant",
+            "mapping":"passwordAssistant"
+        },
+        {
+            "name": "workSpaceIdAssistant",
+            "displayPropName": "Work Space Id",
+            "type": "String",
+            "controlType": "text",
+            "modelName": "setWorkSpaceIdAssistant",
+            "mapping":"workSpaceIdAssistant"
+        }
+    ],
+    "input_schema": "{
+              title: InputSchemaAssistant,
+              type: object,
+              properties: {
+                textAssistant: {
+                      type: string
+        }
+    }
+}",
+          "output_schema": "{
+                  title: OutputSchema,
+                  type: object,
+                  properties: {
+                      status: {
+                          type: string
+    					},
+    				intencion:{
+    				type: string
+    				},
+    				confianza:{
+    				type: string
+    				}
+}
+}"
+}
+        ]
+  }
+]
+}

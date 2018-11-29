@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Traductor Help</title>
+</head>
+
+<body style="font-family: 'Times New Roman', Times, serif">
+    <h2 style="color:rgb(204, 0, 82)">Traductor</h2>
+    <h4 style="font: bold">Descripción de la tarea</h4>
+    <p>Recibe texto y devuelve la traducción del texto de acuerdo al modelo que se especifica en la propiedad modelId</p>
+
+    <h4 style="font: bold">Propiedades de la tarea</h4>
+    <ul>
+        <li>Texto - Texto que se desea traducir</li>
+        <li>Model Id - Indicar el lenguaje de origen y el lenguaje destino, tomar de referencia el siguiente enlace 
+		Por ejemplo: "es-en" (Español - Ingles), "en-es" (Ingles - Español), "pt-en" (Portugües - Ingles), "en-pt" (Ingles - Portugües)
+		"https://console.bluemix.net/docs/services/language-translator/translation-models.html#translation-models"</li>
+        <li>Api Key - Api Key proporcionada por IBM watson al crear el servicio desde el portal IBM bluemix</li>
+    </ul>
+    <h4 style="font: bold">Input schema</h4>
+    <ul>
+        <li>Texto - Texto que se desea traducir</li>
+    </ul>
+
+    <h4 style="font: bold">Output schema</h4>
+    <ul>
+        <li>traduccion - Despliega la traducción del texto especificado</li>
+    </ul>
+
+    <h4>Prerequisitos</h4>
+    <p>Api Key proporcionada por IBM bluemix</p>
+
+    <h4>Related Boundary Events</h4>
+    <p>No aplica</p>
+
+    <h4>Casos de uso</h4>
+    <p>Traducir texto de un idioma a otro usando la IA de Watson Language Translator</p>
+</body>
+
+</html>
