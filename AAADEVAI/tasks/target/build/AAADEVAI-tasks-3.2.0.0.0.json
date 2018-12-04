@@ -3,11 +3,11 @@
   "categories":
 [
   {
-        "name": "AAAAI",
+        "name": "AAA AI",
         "mTypes": 
          [
             {
-                "name": "AAA Tranductor",
+                "name": "AAA Traductor",
                 "snapinVersion": "3.0",
 				"displayName": "Traductor",
                 "tag": "AAADEVAI_TRADUCTOR",
@@ -202,6 +202,146 @@
     				}
 }
 }"
+},{
+    "name": "AAA TextToSpeech",
+    "snapinVersion": "3.0",
+"displayName": "AAA TextToSpeech",
+    "tag": "TextToSpeechAAAIA",
+    "svg": "speak",
+    "helpUrl": "TextToSpeechHelp.html",
+    "tile": "gold",
+    "serviceName": "CollabDesigner",
+    "custom": "true",
+    "nodeType": "activity",
+    "modelClass": "com.avaya.AAADEVAI.TextToSpeechModel",
+    "executionClass": "com.avaya.AAADEVAI.TextToSpeechExecution",
+"mapping": "[\"input\", \"output\"]",
+    "properties": [ {
+            "name": "MessageBody",
+            "displayPropName": "Texto",
+            "type": "String",
+            "controlType": "multilineText",
+            "textLines": "7",
+            "modelName": "setMessageBody",
+            "mapping":"MessageBody"
+        },
+        {
+            "name": "userName",
+            "displayPropName": "Usuario",
+            "type": "String",
+            "controlType": "text",
+            "modelName": "setUserName",
+            "mapping":"userName"
+        },
+        {
+            "name": "password",
+            "displayPropName": "Password",
+            "type": "String",
+            "controlType": "password",
+            "modelName": "setPassword",
+            "mapping":"userName"
+        },                        {
+            "name": "voice",
+            "displayPropName": "Seleccionar la voz, se acuerdo al idioma",
+            "type": "String",
+            "controlType": "combo",
+            "modelName": "setVoice",
+            "filler": "getInstance.comboVoice",
+            "fillerModel": "com.avaya.AAADEVAI.FillerUtil"
+        }
+    ],
+"input_schema": "{
+        title: InputSchema,
+        type: object,
+        properties: {
+            MessageBody: {
+                type: string
+            },
+            ucid: {
+                type: string
+            }
+
+        }
+}",
+    "output_schema": "{
+            title: OutputSchema,
+            type: object,
+            properties: {
+                result: {
+                    type: string
+                },
+                url: {
+                    type: string
+                }
+            }
+    }"
+},{
+    "name": "AAA Speech To Text",
+    "snapinVersion": "3.0",
+"displayName": "AAA Speech To Text",
+    "tag": "STTAAAAI",
+    "svg": "writing",
+    "helpUrl": "STTHelp.html",
+    "tile": "red",
+    "serviceName": "CollabDesigner",
+    "custom": "true",
+    "nodeType": "activity",
+    "modelClass": "com.avaya.AAADEVAI.SpeechToTextModel",
+    "executionClass": "com.avaya.AAADEVAI.SpeechToTextExecution",
+"mapping": "[\"input\", \"output\"]",
+    "properties": [
+        {
+            "name": "url",
+            "displayPropName": "URL",
+            "type": "String",
+            "controlType": "text",
+            "modelName": "setUrl",
+            "mapping": "url"
+          },
+          {
+            "name": "language",
+            "displayPropName": "Language Code",
+            "type": "String",
+            "controlType": "combo",
+            "modelName": "setLanguage",
+            "mapping": "language",
+            "filler": "getInstance.comboLanguage",
+            "fillerModel": "com.avaya.AAADEVAI.FillerUtil"
+          },
+          {
+            "name": "apiKey",
+            "displayPropName": "ApiKey",
+            "type": "String",
+            "controlType": "password",
+            "modelName": "setApiKey",
+            "mapping": "apiKey"
+          }
+    ],
+"input_schema": "{
+        title: InputSchema,
+        type: object,
+        properties: {
+            url: {
+                type: string
+            }
+
+        }
+}",
+    "output_schema": "{
+            title: OutputSchema,
+            type: object,
+            properties: {
+                status: {
+                    type: string
+                },
+                transcripcion:{
+                     type: string
+                },
+                confianza:{
+                    type: string
+                }
+            }
+    }"
 }
         ]
   }

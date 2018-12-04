@@ -166,6 +166,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.3.6</version>
+		</dependency>
+		<dependency>
 			<groupId>com.roobroo</groupId>
 			<artifactId>engine</artifactId>
 			<version>${roobroo-version}</version>

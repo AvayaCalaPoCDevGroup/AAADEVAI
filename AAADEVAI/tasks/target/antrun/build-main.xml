@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="maven-antrun-" default="main"  >
 <target name="main">
-  <delete file="C:\Users\umansilla\workspace\AAADEVAI\tasks/target/AAADEVAI-tasks-3.2.0.0.0.jar" quiet="true"/>
-  <jar basedir="C:\Users\umansilla\workspace\AAADEVAI\tasks/target/build" defaultexcludes="No" destfile="C:\Users\umansilla\workspace\AAADEVAI\tasks/target/AAADEVAI-tasks-3.2.0.0.0.jar"/>
+  <delete file="C:\Users\umansilla\git\AAADEVAI\AAADEVAI\tasks/target/AAADEVAI-tasks-3.2.0.0.0.jar" quiet="true"/>
+  <jar basedir="C:\Users\umansilla\git\AAADEVAI\AAADEVAI\tasks/target/build" defaultexcludes="No" destfile="C:\Users\umansilla\git\AAADEVAI\AAADEVAI\tasks/target/AAADEVAI-tasks-3.2.0.0.0.jar"/>
 </target>
 </project>
