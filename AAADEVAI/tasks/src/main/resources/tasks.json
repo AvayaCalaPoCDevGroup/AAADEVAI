@@ -203,79 +203,247 @@
 }
 }"
 },{
-    "name": "AAA TextToSpeech",
+    "name": "AAA Play Announcement",
     "snapinVersion": "3.0",
-"displayName": "AAA TextToSpeech",
-    "tag": "TextToSpeechAAAIA",
+"displayName": "AAA Play Announcement",
+    "tag": "TTSANDPLAY",
     "svg": "speak",
-    "helpUrl": "TextToSpeechHelp.html",
-    "tile": "gold",
+    "helpUrl": "ttsandplay.html",
+    "tile": "blue",
     "serviceName": "CollabDesigner",
     "custom": "true",
     "nodeType": "activity",
-    "modelClass": "com.avaya.AAADEVAI.TextToSpeechModel",
-    "executionClass": "com.avaya.AAADEVAI.TextToSpeechExecution",
-"mapping": "[\"input\", \"output\"]",
-    "properties": [ {
-            "name": "MessageBody",
-            "displayPropName": "Texto",
-            "type": "String",
-            "controlType": "multilineText",
-            "textLines": "7",
-            "modelName": "setMessageBody",
-            "mapping":"MessageBody"
+    "modelClass": "com.avaya.AAADEVAI.TTSANDPLAYModel",
+    "executionClass": "com.avaya.AAADEVAI.TTSANDPLAYExecution",
+    "mapping": "[\"input\", \"output\"]",
+    "displayProperties": "[{\"mapping\": [{\"Media-URI\": \"mediauri\"}]}, {\"properties\": [\"Media-URI\", \"MediaFile\"]}]",
+    "properties": [
+      {
+          "name": "Media-URI",
+          "displayPropName": "Text",
+          "type": "String",
+          "controlType": "multilineText",
+          "textLines" : "7",
+          "modelName": "setMediaUri",
+          "mapping": "mediauri"
+       },
+       {
+          "name": "Handle",
+          "displayPropName": "Handle",
+          "type": "String",
+          "controlType": "text",
+          "modelName": "setHandle",
+          "mapping": "handle"
         },
-        {
-            "name": "userName",
-            "displayPropName": "Usuario",
-            "type": "String",
-            "controlType": "text",
-            "modelName": "setUserName",
-            "mapping":"userName"
+         {
+          "name": "Participant",
+          "displayPropName": "Play announcement to",
+          "type": "String",
+          "controlType": "combo",
+          "filler": "getInstance.participantTypeForPA",
+             "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+          "modelName": "setParticipant",
+          "mapping": "participant"
         },
-        {
-            "name": "password",
-            "displayPropName": "Password",
-            "type": "String",
-            "controlType": "password",
-            "modelName": "setPassword",
-            "mapping":"userName"
-        },                        {
-            "name": "voice",
-            "displayPropName": "Seleccionar la voz, se acuerdo al idioma",
-            "type": "String",
-            "controlType": "combo",
-            "modelName": "setVoice",
-            "filler": "getInstance.comboVoice",
-            "fillerModel": "com.avaya.AAADEVAI.FillerUtil"
-        }
-    ],
-"input_schema": "{
-        title: InputSchema,
-        type: object,
-        properties: {
-            MessageBody: {
-                type: string
-            },
-            ucid: {
-                type: string
-            }
+       {
+          "name": "UseLocale",
+          "displayPropName": "Use locale",
+          "type": "String",
+          "controlType": "checkbox",
+          "filler": "getInstance.booleanType",
+             "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+          "modelName": "setUseLocale",
+          "mapping": "useLocale"
+      },
+       {
+          "name": "Locale",
+          "displayPropName": "Locale",
+          "type": "String",
+          "controlType": "text",
+          "modelName": "setLocale",
+          "mapping": "locale"
+       },
+       {
+          "name": "Interruptibility",
+          "displayPropName": "Interrupt announcement",
+          "type": "String",
+          "controlType": "checkbox",
+          "filler": "getInstance.booleanType",
+             "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+          "modelName": "setInterruptibility",
+          "mapping": "interruptibility"
+      },
+      {
+          "name": "Duration",
+          "displayPropName": "Duration (secs)",
+          "type": "String",
+          "controlType": "text",
+          "modelName": "setDuration",
+          "mapping": "duration"
+      },
+      {
+          "name": "IterateCount",
+          "displayPropName": "Iterate count",
+          "type": "String",
+          "controlType": "text",
+          "modelName": "setIterateCount",
+          "mapping": "iterateCount"
+      },
+      {
+          "name": "AnnouncementForever",
+          "displayPropName": "Announce forever",
+          "type": "String",
+          "controlType": "checkbox",
+          "filler": "getInstance.booleanType",
+             "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+          "modelName": "setAnnouncementForever",
+          "mapping": "announcementForever"
+      },
+      {
+        "name": "userName",
+        "displayPropName": "User",
+        "type": "String",
+        "controlType": "text",
+        "modelName": "setUserName",
+        "mapping":"userName"
+    },
+    {
+        "name": "password",
+        "displayPropName": "Password",
+        "type": "String",
+        "controlType": "password",
+        "modelName": "setPassword",
+        "mapping":"userName"
+    },                        {
+        "name": "voice",
+        "displayPropName": "Select the voice, according to the language",
+        "type": "String",
+        "controlType": "combo",
+        "modelName": "setVoice",
+        "filler": "getInstance.comboVoice",
+        "fillerModel": "com.avaya.AAADEVAI.FillerUtil"
+    }
+      ],
+    "input_schema": "{ 
+          title: PlayAnnouncementInputSchema,
+          type: object,
+          properties: {
+              ucid: {
+                  type: string
+              },
+              mediauri: {
+                  type: string
+              },
+              handle: {
+                  type: string
+              },
+              participant: {
+                  type: string
+              },
+              interruptibility: {
+                  type: string
+              },
+              duration: {
+                  type: string
+              },
+              iterateCount: {
+                  type: string
+              },
+              announcementForever: {
+                  type: string
+              },
+              locale: {
+                  type: string
+              },
+              useLocale: {
+                  type: string
+              }
+          }
+      }",
+      "output_schema": "{ 
+          title:PlayAnnouncementOutputSchema,
+          type:object,
+          properties:{
+              ucid:{ type:string },
+              status:{ type:string }
+          }
+      }"
+},
+//{
+//     "name": "AAA TextToSpeech",
+//     "snapinVersion": "3.0",
+// "displayName": "AAA TextToSpeech",
+//     "tag": "TextToSpeechAAAIA",
+//     "svg": "speak",
+//     "helpUrl": "TextToSpeechHelp.html",
+//     "tile": "gold",
+//     "serviceName": "CollabDesigner",
+//     "custom": "true",
+//     "nodeType": "activity",
+//     "modelClass": "com.avaya.AAADEVAI.TextToSpeechModel",
+//     "executionClass": "com.avaya.AAADEVAI.TextToSpeechExecution",
+// "mapping": "[\"input\", \"output\"]",
+//     "properties": [ {
+//             "name": "MessageBody",
+//             "displayPropName": "Texto",
+//             "type": "String",
+//             "controlType": "multilineText",
+//             "textLines": "7",
+//             "modelName": "setMessageBody",
+//             "mapping":"MessageBody"
+//         },
+//         {
+//             "name": "userName",
+//             "displayPropName": "Usuario",
+//             "type": "String",
+//             "controlType": "text",
+//             "modelName": "setUserName",
+//             "mapping":"userName"
+//         },
+//         {
+//             "name": "password",
+//             "displayPropName": "Password",
+//             "type": "String",
+//             "controlType": "password",
+//             "modelName": "setPassword",
+//             "mapping":"userName"
+//         },                        {
+//             "name": "voice",
+//             "displayPropName": "Seleccionar la voz, se acuerdo al idioma",
+//             "type": "String",
+//             "controlType": "combo",
+//             "modelName": "setVoice",
+//             "filler": "getInstance.comboVoice",
+//             "fillerModel": "com.avaya.AAADEVAI.FillerUtil"
+//         }
+//     ],
+// "input_schema": "{
+//         title: InputSchema,
+//         type: object,
+//         properties: {
+//             MessageBody: {
+//                 type: string
+//             },
+//             ucid: {
+//                 type: string
+//             }
 
-        }
-}",
-    "output_schema": "{
-            title: OutputSchema,
-            type: object,
-            properties: {
-                result: {
-                    type: string
-                },
-                url: {
-                    type: string
-                }
-            }
-    }"
-},{
+//         }
+// }",
+//     "output_schema": "{
+//             title: OutputSchema,
+//             type: object,
+//             properties: {
+//                 result: {
+//                     type: string
+//                 },
+//                 url: {
+//                     type: string
+//                 }
+//             }
+//     }"
+// },
+{
     "name": "AAA Speech To Text",
     "snapinVersion": "3.0",
 "displayName": "AAA Speech To Text",
