@@ -47,11 +47,23 @@ public class TraductorExecution extends NodeInstance {
 			content = traductor.getTexto();
 		}
 		
+		
+		
+		
 		String password = "kVrAnsbYI64uK5oJvjDCYwftGECOUgLDYTJbPc7sbsJX";
 //		password = CryptoUtil.getInstance().decrypt(password);
 		
 		String user = "apikey";
 		String modelId = traductor.getModelId();
+		
+		if(modelId.equals("es-en")){
+			BuscarYRemplazarAcentos español = new BuscarYRemplazarAcentos();
+			content = español.Español(content);
+		}
+		if(modelId.equals("pt-en")){
+			BuscarYRemplazarAcentos portugues = new BuscarYRemplazarAcentos();
+			content = portugues.Portugues(content);
+		}
 		
 		final String resultTraductor = callWatsonTraductor(user, password, content, modelId);
 		if (resultTraductor == null) {
