@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Text To Speech And Play Announcement Help</title>
+</head>
+
+<body style="font-family: 'Times New Roman', Times, serif">
+    <h2 style="color:rgb(204, 0, 82)">Text To Speech And Play Announcement Help</h2>
+    <h4 style="font: bold">Descripción de la tarea</h4>
+    <p>Recibe texto y genera un archivo de audio almacenado en un servlet dentro de Breeze para reproducor el audio en una llamada.</p>
+
+    <h4 style="font: bold">Propiedades de la tarea</h4>
+    <ul>
+        <li>Texto - Texto de entrada para crear el audio que se reproducirá en la llamda</li>
+        <li>Handle - El número / dirección para quien se reproducirá el anuncio.</li>
+        <li>Play announcement to:
+            <ul>
+                <li>Callid - Reproduce el anuncio al callid. Todas las partes conectadas a la llamada escuchan el anuncio.</li>
+                <li>Called - Reproduce el anuncio solo para la parte llamada.</li>
+                <li>Calling - Play the announcement to the calling party only.</li>
+            </ul>
+        </li>
+        <li>Use Locale - Si se marca, la asignación / propiedad de la configuración regional se utiliza para reproducir medios. Si no se proporciona, se utiliza el atributo de configuración regional predeterminado de System Manager.</li>
+        <li>Locale - Lenguaje de solicitud admitido por Avaya Aura® Media Server (MS).</li>
+        <li>Interrupt announcement (optional) - Determina si el anuncio de audio se interrumpe cuando se presiona un dígito. Verdadero (predeterminado) interrumpe el anuncio. Falso no lo hace.</li>
+        <li>Duration (secs) - La duración de una solicitud de llamada en segundos.</li>
+        <li>Iterate count - El número de veces que se reproduce el anuncio.</li>
+        <li>Announce forever (Optional) - Configura los medios para que se reproduzcan para siempre sin ser interrumpidos por el vencimiento de un temporizador. Los parámetros de duración y recuento de iteraciones no se utilizan cuando este indicador se establece
+            en verdadero. El valor predeterminado es falso.</li>
+        <li>Usuario - Usuario proporcionado por IBM watson al crear el servicio desde el portal IBM bluemix</li>
+        <li>Password - Password proporcionada por IBM watson al crear el servicio desde el portal IBM bluemix</li>
+        <li>Seleccionar la voz, se acuerdo al idioma - De acuerdo al idioma del texto introducido se deberá seleccionar la voz</li>
+        <ul>
+            <li>es-ES_LauraVoice - Castellano</li>
+            <li>pt-BR_IsabelaVoice - Portugües Brazil</li>
+            <li>en-US_AllisonVoice - Ingles US</li>
+        </ul>
+        <li>
+            <p>Dominio: Ingresar el dominio donde se encuentra instalada la aplicación AAADEVLOGGER</p>
+        </li>
+    </ul>
+    <h4 style="font: bold">Input schema</h4>
+    <ul>
+        <li>ucid (Universal Call Identifier) (mandatory) - Identificador de llamada de la llamada donde se reproduce el anuncio. Asigne el ucid desde el appid del evento Call o desde el esquema de salida de la tarea Make Call.</li>
+        <li>handle - El número / dirección para quien se reproducirá el anuncio.</li>
+        <li>participant - El destinatario del anuncio: la parte llamada o la parte que llama. Entradas válidas: callid, llamada, llamada.</li>
+        <li>interruptibility (optional) - Determina si el anuncio de audio se interrumpe cuando se presiona un dígito. Verdadero (predeterminado), interrumpe el anuncio. Falso no lo hace.</li>
+        <li>duration - La duración de una solicitud de llamada en segundos.</li>
+        <li>iterateCount - El número de veces que se reproduce el anuncio.</li>
+        <li>announcementForever (Optional) - Configura los medios para que se reproduzcan para siempre sin ser interrumpidos por el vencimiento de un temporizador. Los parámetros de duración y recuento de iteraciones no se utilizan cuando este indicador se
+            establece en verdadero. El valor predeterminado es falso.</li>
+        <li>locale - Lenguaje de solicitud admitido por Avaya Aura® Media Server (MS).</li>
+        <li>useLocale - Se aceptan valores verdaderos y falsos. Si es verdadero, la asignación / propiedad de la configuración regional se utiliza para reproducir medios. Si no se proporciona, se utiliza el atributo de configuración regional predeterminado
+            de System Manager.</li>
+    </ul>
+
+    <h4 style="font: bold">Output schema</h4>
+    <ul>
+        <li>ucid - Identificador de llamada de la llamada.</li>
+        <li>status:
+            <ul>
+                <li>COMPLETE - LLamada completada exitosamente</li>
+                <li>FAILED - La llamada falló</li>
+                <li>INTERRUPTED - llamada interrumpida</li>
+                <li>STOPPED - llamada detenida</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h4>Prerequisitos</h4>
+    <p>Usuario y password proporcionados por IBM bluemix</p>
+
+    <h4>Casos de uso</h4>
+    <p>La conversión texto-voz es la generación por medios automáticos de una voz artificial que genera el sonido producido por una persona al leer un texto cualquiera en voz alta. o una voz artificial. Es decir, son sistemas que permiten la conversión de
+        textos en voz sintética. Los conversores de texto-voz son conocidos también con las siglas CTV o por las siglas en inglés TTS (Text To Speech).</p>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+<html xml:lang="en-us" lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Play And Collect</title>
+</head>
+
+<body style="font-family: 'Times New Roman', Times, serif">
+
+    <h2 style="color:rgb(204, 0, 82)">Text To Speech, Play And Collect Help</h2>
+
+    <div class="body conbody ">
+        <div class="section ">
+            <h4 class="title sectiontitle ">Definición de la tarea</h4>
+
+            <p class="p ">La tarea Reproducir y recolectar reproduce un anuncio y recopila dígitos de multifrecuencia de tono dual (DTMF, por sus siglas en inglés) presionados por la parte llamante o llamada.
+            </p>
+            <p class="p ">Play and Collect es una tarea asíncrona. Se reanuda cuando el anuncio expira, finaliza o se interrumpe por los dígitos que se presionan. </p>
+        </div>
+
+        <div class="section ">
+            <h2 class="title sectiontitle ">Propiedades de la tarea</h2>
+
+            <p class="p ">En la siguiente lista de propiedades, la fuente de medios es obligatoria. La fuente URI / texto de los medios tiene prioridad sobre los valores seleccionados para el espacio de nombre de los medios, el nombre del grupo de medios y el archivo
+                de medios. </p>
+            <p class="p ">Los valores especificados por la asignación de entrada tienen prioridad sobre los valores correspondientes ingresados ​​en la ventana Propiedades.</p>
+            <ul class="ul ">
+                <li>
+                    <p>Media URI / Texto (obligatorio): La fuente que identifica la lista de recursos de audio o la cadena de texto a voz (TTS) que se reproducirá en la llamada. Valor legal para la fuente: una lista de cstore: // o file: // o http: // URI
+                        para recursos de audio o cadenas de texto TTS para sintetizar en voz.</p>
+                </li>
+                <li>
+                    <p>Locale regional: lenguaje de solicitud admitido por Avaya Aura> Media Server (MS).</p>
+                </li>
+                <li>
+                    <p>Number of digits: El número de dígitos que deben ser recogidos. Entrada válida: número mayor o igual a 1.</p>
+                </li>
+                <li>
+                    <p>Termination key: La clave de terminación que detiene una operación de recolección de dígitos. Un valor posible podría ser un dígito '0-9', '*' o '#' símbolo. El usuario puede ingresar la clave de terminación a voluntad para terminar
+                        el anuncio. El valor predeterminado es el símbolo #. Nunca se le pedirá al usuario que presione la tecla de terminación. Sin embargo, el usuario puede optar por finalizar el proceso presionando la tecla de terminación. El momentAvaya
+                        Aura Media Server (MS) detecta el último dígito del número requerido de dígitos ingresados ​​por el usuario, la tarea recopila y devuelve la salida. No es necesario presionar la tecla de terminación.</p>
+                </li>
+                <li>
+                    <p>Handle: El número / dirección para la cual se reproducirá el anuncio y los dígitos recopilados.</p>
+                </li>
+                <li>
+                    <p>Collect digits from: El destinatario del anuncio, la parte llamada o llamante. Entradas válidas: llamada y llamada. </p>
+                </li>
+                <li>
+                    <p>Interrupt announcement (optional): Determina si el anuncio de audio se interrumpe cuando se presiona un dígito. Verdadero (predeterminado) interrumpe el anuncio. Falso no lo hace.</p>
+                </li>
+                <li>
+                    <p>Timeout (optional): Número de segundos a esperar para recibir el primer dígito. El valor predeterminado es 60 segundos. Si no se recibe un dígito en el tiempo especificado, la WFD continúa con la siguiente tarea.</p>
+                </li>
+                <li>
+                    <p>Usuario - Usuario proporcionado por IBM watson al crear el servicio desde el portal IBM bluemix</p>
+                </li>
+                <li>
+                    <p>Password - Password proporcionada por IBM watson al crear el servicio desde el portal IBM bluemix</p>
+                </li>
+                <li>
+                    <p>Seleccionar la voz, se acuerdo al idioma - De acuerdo al idioma del texto introducido se deberá seleccionar la voz</p>
+                </li>
+                <ul>
+                    <li>es-ES_LauraVoice - Castellano</li>
+                    <li>pt-BR_IsabelaVoice - Portugües Brazil</li>
+                    <li>en-US_AllisonVoice - Ingles US</li>
+                </ul>
+                <li>
+                    <p>Dominio: Ingresar el dominio donde se encuentra instalada la aplicación AAADEVLOGGER</p>
+                </li>
+            </ul>
+
+            <p>Si se proporcionan los dígitos Handle y Collect from, entonces Handle tiene prioridad. Si no hay ninguno, se utiliza la parte que llama.</p>
+            <p>Todos los campos obligatorios deben asignarse mediante la ventana de asignación de entrada o ingresarse en la ventana Propiedades para que la validación tenga éxito. Los dígitos Handle o Collect deben tener un valor.</p>
+        </div>
+
+        <h4 style="font: bold">Input schema</h4>
+        <ul>
+            <li>ucid (Universal Call Identifier) (mandatory) - Identificador de llamada de la llamada donde se reproduce el anuncio. Asigne el ucid desde el appid del evento Call o desde el esquema de salida de la tarea Make Call.</li>
+            <li>handle - El número / dirección para quien se reproducirá el anuncio.</li>
+            <li>participant - El destinatario del anuncio: la parte llamada o la parte que llama. Entradas válidas: callid, llamada, llamada.</li>
+            <li>interruptibility (optional) - Determina si el anuncio de audio se interrumpe cuando se presiona un dígito. Verdadero (predeterminado), interrumpe el anuncio. Falso no lo hace.</li>
+            <li>duration - La duración de una solicitud de llamada en segundos.</li>
+            <li>iterateCount - El número de veces que se reproduce el anuncio.</li>
+            <li>announcementForever (Optional) - Configura los medios para que se reproduzcan para siempre sin ser interrumpidos por el vencimiento de un temporizador. Los parámetros de duración y recuento de iteraciones no se utilizan cuando este indicador
+                se establece en verdadero. El valor predeterminado es falso.</li>
+            <li>locale - Lenguaje de solicitud admitido por Avaya Aura® Media Server (MS).</li>
+            <li>useLocale - Se aceptan valores verdaderos y falsos. Si es verdadero, la asignación / propiedad de la configuración regional se utiliza para reproducir medios. Si no se proporciona, se utiliza el atributo de configuración regional predeterminado
+                de System Manager.</li>
+            <li>domain - Ingresar el dominio donde se encuentra instalada la aplicación AAADEVLOGGER</li>
+        </ul>
+
+        <p class=>Si se asignan los dígitos de Handle y Collect from, entonces Handle tiene prioridad. Si no hay ninguno, se utiliza la parte que llama.</p>
+    </div>
+
+    <div class="section ">
+        <h2 class="title sectiontitle ">Output schema</h2>
+
+        <ul>
+            <li>
+                <p>ucid: ID de llamada universal de la llamada.</p>
+            </li>
+            <li>
+                <p>digits: Dígitos recogidos por la tarea.</p>
+            </li>
+            <li>
+                <div>status:
+                    <ul>
+                        <li>
+                            <p>FAILED - Si la colección de dígitos falló antes de que se cumpliera algún criterio de finalización.</p>
+                        </li>
+                        <li>
+                            <p>NUMBER_OF_DIGITS - Si la colección terminó y se cumple el número de dígitos.</p>
+                        </li>
+                        <li>
+                            <p>STOPPED - La operación de recolección de dígitos fue detenida explícitamente por el servicio de cliente. </p>
+                        </li>
+                        <li>
+                            <p>TERMINATION_KEY - Si la colección terminó y se cumplió la clave de terminación.</p>
+                        </li>
+                        <li>
+                            <p>TIMEOUT - Si la colección se completa y no se ha introducido DTMF.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div>Busque los siguientes mensajes en el estado cuando una tarea no es exitosa, correlacione la salida y agregue la lógica de manera apropiada:
+                    <ul>
+                        <li>
+                            <p>shortReason:'AFTER_ANSWER</p>
+                        </li>
+                        <li>
+                            <p>shortReason:' MEDIA_SERVER_FAILURE</p>
+                        </li>
+                        <li>
+                            <p>'shortReason':'AFTER_ANSWER'</p>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <div>
+        <h2>Manejo de errores</h2>
+
+        <p>No aplica.</p>
+    </div>
+
+    <h4>Prerequisitos</h4>
+    <p>Usuario y password proporcionados por IBM bluemix</p>
+    <h4>Casos de uso</h4>
+    <p>La conversión texto-voz es la generación por medios automáticos de una voz artificial que genera el sonido producido por una persona al leer un texto cualquiera en voz alta. o una voz artificial. Es decir, son sistemas que permiten la conversión de
+        textos en voz sintética. Los conversores de texto-voz son conocidos también con las siglas CTV o por las siglas en inglés TTS (Text To Speech).</p>
+</body>
+
+</html>
