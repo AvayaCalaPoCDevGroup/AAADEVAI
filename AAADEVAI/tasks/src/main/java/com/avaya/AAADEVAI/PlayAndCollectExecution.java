@@ -71,7 +71,6 @@ public class PlayAndCollectExecution extends NodeInstance {
 	public static int filesize;
 	private Call call;
 
-
 	public PlayAndCollectExecution(Instance instance, BpmNode node) {
 		super(instance, node);
 	}
@@ -136,121 +135,137 @@ public class PlayAndCollectExecution extends NodeInstance {
 			throw new IllegalArgumentException("Call object not found...");
 		}
 
-		if (model.getVoice().equals("es-ES_LauraVoice")
-				|| model.getVoice().equals("es-ES_EnriqueVoice")
-				|| model.getVoice().equals("es-LA_SofiaVoice")
-				|| model.getVoice().equals("es-US_SofiaVoice")) {
-			BuscarYRemplazarAcentos español = new BuscarYRemplazarAcentos();
-			mediaFileURI = español.Español(mediaFileURI);
-		}
+		boolean retval;
+		boolean retva2;
+		retval = mediaFileURI.contains("http://");
+		retva2 = mediaFileURI.contains("https://");
 
-		if (model.getVoice().equals("pt-BR_IsabelaVoice")) {
-			BuscarYRemplazarAcentos portugues = new BuscarYRemplazarAcentos();
-			mediaFileURI = portugues.Portugues(mediaFileURI);
-		}
-		log.info("AAADEVTTSANDPLAY media File Uri " + mediaFileURI);
-		/*
-		 * Creando el HTTPS POST a Watson
-		 */
-		try {
-			log.info("AAADEVTTSANDPLAY Creando HTTP POST");
-			String user = model.getUserName();
-			String password = "g7rmue4UsCWP";
+		if (retval == true || retva2 == true) {
 
-			final SSLProtocolType protocolTypeTraductor = SSLProtocolType.TLSv1_2;
-			final SSLContext sslContextTraductor = SSLUtilityFactory
-					.createSSLContext(protocolTypeTraductor);
-			final CredentialsProvider provider = new BasicCredentialsProvider();
-			provider.setCredentials(AuthScope.ANY,
-					new UsernamePasswordCredentials(user, password));
+		} else {
 
-			final String URI = "https://stream.watsonplatform.net/text-to-speech/api/v1/synthesize?voice="
-					+ model.getVoice();
+			String voice = (String) get("voice");
+			if ((voice == null) || (voice.isEmpty())) {
+				voice = model.getVoice();
+			}
 
-			final HttpClient clientTTSpeech = HttpClients.custom()
-					.setSslcontext(sslContextTraductor)
-					.setHostnameVerifier(new AllowAllHostnameVerifier())
-					.build();
-			// final HttpClient clientTraductor = new DefaultHttpClient();
+			if (voice.equals("es-ES_LauraVoice")
+					|| voice.equals("es-ES_EnriqueVoice")
+					|| voice.equals("es-LA_SofiaVoice")
+					|| voice.equals("es-US_SofiaVoice")) {
+				BuscarYRemplazarAcentos español = new BuscarYRemplazarAcentos();
+				mediaFileURI = español.Español(mediaFileURI);
+			}
 
-			final HttpPost postTTSpeech = new HttpPost(URI);
-			postTTSpeech.addHeader("Accept", "audio/l16;rate=8000");
-			postTTSpeech.addHeader("Content-Type", "application/json");
+			if (voice.equals("pt-BR_IsabelaVoice")) {
+				BuscarYRemplazarAcentos portugues = new BuscarYRemplazarAcentos();
+				mediaFileURI = portugues.Portugues(mediaFileURI);
+			}
+			log.info("AAADEVTTSANDPLAY media File Uri " + mediaFileURI);
+			/*
+			 * Creando el HTTPS POST a Watson
+			 */
+			try {
+				log.info("AAADEVTTSANDPLAY Creando HTTP POST");
+				String user = "1a750c00-9343-4032-9e4d-dd485052692d";
+				String password = "g7rmue4UsCWP";
 
-			final String authStringTTSpecch = user + ":" + password;
-			final String authEncBytesTTSpeech = DatatypeConverter
-					.printBase64Binary(authStringTTSpecch.getBytes());
-			postTTSpeech.addHeader("Authorization", "Basic "
-					+ authEncBytesTTSpeech);
+				final SSLProtocolType protocolTypeTraductor = SSLProtocolType.TLSv1_2;
+				final SSLContext sslContextTraductor = SSLUtilityFactory
+						.createSSLContext(protocolTypeTraductor);
+				final CredentialsProvider provider = new BasicCredentialsProvider();
+				provider.setCredentials(AuthScope.ANY,
+						new UsernamePasswordCredentials(user, password));
 
-			final String messageBodyTTSpeech = "{\"text\":\"" + mediaFileURI
-					+ "\"}";
-			final StringEntity conversationEntityTTSpeech = new StringEntity(
-					messageBodyTTSpeech);
-			postTTSpeech.setEntity(conversationEntityTTSpeech);
+				final String URI = "https://stream.watsonplatform.net/text-to-speech/api/v1/synthesize?voice="
+						+ voice;
 
-			final HttpResponse responseTTSpeech = clientTTSpeech
-					.execute(postTTSpeech);
+				final HttpClient clientTTSpeech = HttpClients.custom()
+						.setSslcontext(sslContextTraductor)
+						.setHostnameVerifier(new AllowAllHostnameVerifier())
+						.build();
+				// final HttpClient clientTraductor = new DefaultHttpClient();
 
-			InputStream in = reWriteWaveHeader(responseTTSpeech.getEntity()
-					.getContent());
-			OutputStream out = new FileOutputStream("" + userHomeDir
-					+ "/TextToSpeech.wav");
+				final HttpPost postTTSpeech = new HttpPost(URI);
+				postTTSpeech.addHeader("Accept", "audio/l16;rate=8000");
+				postTTSpeech.addHeader("Content-Type", "application/json");
 
-			byte[] buffer = new byte[filesize + 8];
-			int length;
-			while ((length = in.read(buffer)) > 0) {
+				final String authStringTTSpecch = user + ":" + password;
+				final String authEncBytesTTSpeech = DatatypeConverter
+						.printBase64Binary(authStringTTSpecch.getBytes());
+				postTTSpeech.addHeader("Authorization", "Basic "
+						+ authEncBytesTTSpeech);
 
-				InputStream byteAudioStream = new ByteArrayInputStream(buffer);
-				AudioFormat audioFormat = new AudioFormat(8000.0f, 16, 1,
-						false, false);
-				AudioInputStream audioInputStream = new AudioInputStream(
-						byteAudioStream, audioFormat, buffer.length);
-				if (AudioSystem.isFileTypeSupported(AudioFileFormat.Type.WAVE,
-						audioInputStream)) {
-					AudioSystem.write(audioInputStream,
-							AudioFileFormat.Type.WAVE, out);
+				final String messageBodyTTSpeech = "{\"text\":\""
+						+ mediaFileURI + "\"}";
+				final StringEntity conversationEntityTTSpeech = new StringEntity(
+						messageBodyTTSpeech);
+				postTTSpeech.setEntity(conversationEntityTTSpeech);
+
+				final HttpResponse responseTTSpeech = clientTTSpeech
+						.execute(postTTSpeech);
+
+				InputStream in = reWriteWaveHeader(responseTTSpeech.getEntity()
+						.getContent());
+				OutputStream out = new FileOutputStream("" + userHomeDir
+						+ "/TextToSpeech.wav");
+
+				byte[] buffer = new byte[filesize + 8];
+				int length;
+				while ((length = in.read(buffer)) > 0) {
+
+					InputStream byteAudioStream = new ByteArrayInputStream(
+							buffer);
+					AudioFormat audioFormat = new AudioFormat(8000.0f, 16, 1,
+							false, false);
+					AudioInputStream audioInputStream = new AudioInputStream(
+							byteAudioStream, audioFormat, buffer.length);
+					if (AudioSystem.isFileTypeSupported(
+							AudioFileFormat.Type.WAVE, audioInputStream)) {
+						AudioSystem.write(audioInputStream,
+								AudioFileFormat.Type.WAVE, out);
+					}
+
 				}
 
+				out.close();
+				in.close();
+				/*
+				 * Haciendo POST
+				 */
+
+				String status[] = { null, null };
+				if (call.getUCID() != null) {
+					MakingPost post = new MakingPost(call, "10.0.0.10");
+					log.info("AAADEVTTSANDPLAY MakePost With Call");
+					status = post.makingPostWithCall(call);
+				} else {
+					log.info("AAADEVTTSANDPLAY MakePost Without Call");
+					MakingPost post = new MakingPost("10.0.0.10");
+					status = post.makingPOST();
+				}
+				log.info("AAADEVTTSANDPLAY Status" + status[0]);
+				if (status[0].equals("ok")) {
+
+					mediaFileURI = "http://10.0.0.10/services/AAADEVLOGGER/FileSaveServlet/web/RecordParticipant/"
+							+ status[1];
+					log.info("AAADEVTTSANDPLAY " + mediaFileURI);
+					// mediaFileURI = formUrl() + status[1];
+
+				} else {
+
+					throw new IllegalArgumentException(
+							"No se ha realizado el POST al Laboratorio correspondiente");
+				}
+
+				/*
+				 * CATCH TRY TTS
+				 */
+			} catch (Exception e) {
+				JSONObject json = new JSONObject();
+				json.put("status", e.toString());
+				return e;
 			}
-
-			out.close();
-			in.close();
-			/*
-			 * Haciendo POST
-			 */
-
-			String status[] = { null, null };
-			if (call.getUCID() != null) {
-				MakingPost post = new MakingPost(call, model.getDomain());
-				log.info("AAADEVTTSANDPLAY MakePost With Call");
-				status = post.makingPostWithCall(call);
-			} else {
-				log.info("AAADEVTTSANDPLAY MakePost Without Call");
-				MakingPost post = new MakingPost(model.getDomain());
-				status = post.makingPOST();
-			}
-			log.info("AAADEVTTSANDPLAY Status" + status[0]);
-			if (status[0].equals("ok")) {
-
-				mediaFileURI = "http://"+model.getDomain()+"/services/AAADEVLOGGER/FileSaveServlet/web/RecordParticipant/"
-						+ status[1];
-				log.info("AAADEVTTSANDPLAY " + mediaFileURI);
-				// mediaFileURI = formUrl() + status[1];
-
-			} else {
-
-				throw new IllegalArgumentException(
-						"No se ha realizado el POST al Laboratorio correspondiente");
-			}
-
-			/*
-			 * CATCH TRY TTS
-			 */
-		} catch (Exception e) {
-			JSONObject json = new JSONObject();
-			json.put("status", e.toString());
-			return e;
 		}
 
 		try {

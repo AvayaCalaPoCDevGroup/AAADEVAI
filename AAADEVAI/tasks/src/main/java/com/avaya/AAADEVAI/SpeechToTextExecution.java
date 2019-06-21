@@ -42,9 +42,15 @@ public class SpeechToTextExecution extends NodeInstance {
 		
 		String domain = transcriptNameArray[2];
 
-		String language = speech.getLanguage();
+		String language = (String) get("language");
+		if ((language == null) || (language.isEmpty())) {
+			language = speech.getLanguage();
+		}
+		
+		
+		
 
-		String password = "";
+		String password = "AIzaSyAb8txQ6r49Cj67Bq4sJi9QE_k1CJusVYU";
 
 		resultSpeechs = callVPS(recFileName, password, language, domain);
 

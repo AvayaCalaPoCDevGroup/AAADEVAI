@@ -168,12 +168,12 @@ public class PlayAndCollectModel extends BpmNode {
 			e.add("No value assigned to Media URI/Text/cstoreURI, enter either one to use this task");
 			isValid = false;
 		}
-		if ((!WFUtil.validateMapping(w, e, getDataInputAssociations(),
-				"domain"))
-				&& ((this.domain == null) || (this.domain.isEmpty()))) {
-			e.add("Favor de anexar el dominio en que se ejecuta la tarea dinámica");
-			isValid = false;
-		}
+//		if ((!WFUtil.validateMapping(w, e, getDataInputAssociations(),
+//				"domain"))
+//				&& ((this.domain == null) || (this.domain.isEmpty()))) {
+//			e.add("Favor de anexar el dominio en que se ejecuta la tarea dinámica");
+//			isValid = false;
+//		}
 		if ((!WFUtil.validateMapping(w, e, getDataInputAssociations(),
 				"numberOfDigits"))
 				&& (!WFUtil.validateEmptyProperty(this.numberOfDigits,

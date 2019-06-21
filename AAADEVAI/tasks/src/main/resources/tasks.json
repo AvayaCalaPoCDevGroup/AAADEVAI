@@ -1,33 +1,31 @@
 ﻿{
-  "name": "My Tasks-from-com.avaya.AAADEVAI",
-  "categories":
-[
-  {
-        "name": "AAA AI",
-        "mTypes": 
-         [
-            {
-                "name": "AAA Traductor",
-                "snapinVersion": "3.0",
-				"displayName": "Traductor",
-                "tag": "AAADEVAI_TRADUCTOR",
-                "svg": "translation",
-                "helpUrl": "traductor.html",
-                "tile": "gold",
-                "serviceName": "CollabDesigner",
-                "custom": "true",
-                "nodeType": "activity",
-                "modelClass": "com.avaya.AAADEVAI.TraductorModel",
-                "executionClass": "com.avaya.AAADEVAI.TraductorExecution",
-				"mapping": "[\"input\", \"output\"]",
-                "properties": [
-                		{
+    "name": "My Tasks-from-com.avaya.AAADEVAI",
+    "categories": [
+        {
+            "name": "AAA AI",
+            "mTypes": [
+                {
+                    "name": "AAA Traductor",
+                    "snapinVersion": "3.0",
+                    "displayName": "Traductor",
+                    "tag": "AAADEVAI_TRADUCTOR",
+                    "svg": "translation",
+                    "helpUrl": "traductor.html",
+                    "tile": "blue",
+                    "serviceName": "CollabDesigner",
+                    "custom": "true",
+                    "nodeType": "activity",
+                    "modelClass": "com.avaya.AAADEVAI.TraductorModel",
+                    "executionClass": "com.avaya.AAADEVAI.TraductorExecution",
+                    "mapping": "[\"input\", \"output\"]",
+                    "properties": [
+                        {
                             "name": "texto",
                             "displayPropName": "Texto",
                             "type": "String",
                             "controlType": "text",
                             "modelName": "setTexto",
-                            "mapping":"texto"
+                            "mapping": "texto"
                         },
                         {
                             "name": "modelid",
@@ -35,7 +33,7 @@
                             "type": "String",
                             "controlType": "text",
                             "modelName": "setModelId",
-                            "mapping":"modelid"
+                            "mapping": "modelid"
                         },
                         {
                             "name": "apikey",
@@ -43,39 +41,42 @@
                             "type": "String",
                             "controlType": "password",
                             "modelName": "setApiKey",
-                            "mapping":"apikey"
+                            "mapping": "apikey"
                         }
-                ],
-	        "input_schema": "{
+                    ],
+                    "input_schema": "{
 			        title: InputSchema,
 			        type: object,
 			        properties: {
 			            texto: {
 			                type: string
-			            }
-
-			        }
-	        }",
+                        },
+                        modelid: {
+                            type: string
+                        }
+                    }
+                }",
                 "output_schema": "{
                         title: OutputSchema,
                         type: object,
                         properties: {
                             status: {
                                 type: string
-                            },
-                            traduccion:{
+                    },
+                            traduccion: {
                             	type: string
-                            }
-                        }
-                }"
-            },{
+                    }
+                }
+            }"
+        },
+        {
             "name": "AAA Emociones",
             "snapinVersion": "3.0",
             "displayName": "Emociones",
             "tag": "AAADEVAI_Emotions",
             "svg": "theatremask",
             "helpUrl": "emocion.html",
-            "tile": "green",
+            "tile": "blue",
             "serviceName": "CollabDesigner",
             "custom": "true",
             "nodeType": "activity",
@@ -89,7 +90,7 @@
                     "type": "String",
                     "controlType": "text",
                     "modelName": "setTextEmociones",
-                    "mapping":"textEmociones"
+                    "mapping": "textEmociones"
                 },
                 {
                     "name": "userNameEmociones",
@@ -97,7 +98,7 @@
                     "type": "String",
                     "controlType": "text",
                     "modelName": "setUserNameEmociones",
-                    "mapping":"userNameEmociones"
+                    "mapping": "userNameEmociones"
                 },
                 {
                     "name": "passwordEmociones",
@@ -105,7 +106,7 @@
                     "type": "String",
                     "controlType": "password",
                     "modelName": "setPasswordEmociones",
-                    "mapping":"userNameEmociones"
+                    "mapping": "userNameEmociones"
                 }
             ],
             "input_schema": "{
@@ -123,10 +124,10 @@
                       properties: {
                           status: {
                               type: string
-           	 			},
-           	 			emociones:{
+            },
+           	 			emociones: {
            	 			type: string
-           	 			}
+            }
         }
     }"
 },
@@ -137,7 +138,7 @@
     "tag": "AAADEVAI_Assistant",
     "svg": "connection",
     "helpUrl": "assistant.html",
-    "tile": "red",
+    "tile": "blue",
     "serviceName": "CollabDesigner",
     "custom": "true",
     "nodeType": "activity",
@@ -151,7 +152,7 @@
             "type": "String",
             "controlType": "text",
             "modelName": "setTextAssistant",
-            "mapping":"textAssistant"
+            "mapping": "textAssistant"
         },
         {
             "name": "userNameAssistant",
@@ -159,7 +160,7 @@
             "type": "String",
             "controlType": "text",
             "modelName": "setUserNameAssistant",
-            "mapping":"userNameAssistant"
+            "mapping": "userNameAssistant"
         },
         {
             "name": "passwordAssistant",
@@ -167,7 +168,7 @@
             "type": "String",
             "controlType": "password",
             "modelName": "setPasswordAssistant",
-            "mapping":"passwordAssistant"
+            "mapping": "passwordAssistant"
         },
         {
             "name": "workSpaceIdAssistant",
@@ -175,7 +176,7 @@
             "type": "String",
             "controlType": "text",
             "modelName": "setWorkSpaceIdAssistant",
-            "mapping":"workSpaceIdAssistant"
+            "mapping": "workSpaceIdAssistant"
         }
     ],
     "input_schema": "{
@@ -193,114 +194,115 @@
                   properties: {
                       status: {
                           type: string
-    					},
-    				intencion:{
+    },
+    				intencion: {
     				type: string
-    				},
-    				confianza:{
+    },
+    				confianza: {
     				type: string
-    				}
+    }
 }
 }"
-},{
-    "name": "AAA Play Announcement",
-    "snapinVersion": "3.0",
-"displayName": "AAA Play Announcement",
-    "tag": "TTSANDPLAYAI",
-    "async": "true", //Definitivo causa por la que no se detiene la tarea dinámica o si se detiene la tarea dinámica
-    "svg": "speak",
-    "helpUrl": "ttsandplay.html",
-    "tile": "green",
-    "serviceName": "CollabDesigner",
-    "custom": "false",
-    "nodeType": "activity",
-    "modelClass": "com.avaya.AAADEVAI.TTSANDPLAYModel",
-    "executionClass": "com.avaya.AAADEVAI.TTSANDPLAYExecution",
-    "mapping": "[\"input\", \"output\"]",
-    "displayProperties": "[{\"mapping\": [{\"Media-URI\": \"mediauri\"}]}, {\"properties\": [\"Media-URI\", \"MediaFile\"]}]",
-    "properties": [
-      {
-          "name": "Media-URI",
-          "displayPropName": "Text",
-          "type": "String",
-          "controlType": "multilineText",
-          "textLines" : "7",
-          "modelName": "setMediaUri",
-          "mapping": "mediauri"
-       },
-       {
-          "name": "Handle",
-          "displayPropName": "Handle",
-          "type": "String",
-          "controlType": "text",
-          "modelName": "setHandle",
-          "mapping": "handle"
-        },
-         {
-          "name": "Participant",
-          "displayPropName": "Play announcement to",
-          "type": "String",
-          "controlType": "combo",
-          "filler": "getInstance.participantTypeForPA",
-             "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
-          "modelName": "setParticipant",
-          "mapping": "participant"
-        },
-       {
-          "name": "UseLocale",
-          "displayPropName": "Use locale",
-          "type": "String",
-          "controlType": "checkbox",
-          "filler": "getInstance.booleanType",
-             "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
-          "modelName": "setUseLocale",
-          "mapping": "useLocale"
-      },
-       {
-          "name": "Locale",
-          "displayPropName": "Locale",
-          "type": "String",
-          "controlType": "text",
-          "modelName": "setLocale",
-          "mapping": "locale"
-       },
-       {
-          "name": "Interruptibility",
-          "displayPropName": "Interrupt announcement",
-          "type": "String",
-          "controlType": "checkbox",
-          "filler": "getInstance.booleanType",
-             "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
-          "modelName": "setInterruptibility",
-          "mapping": "interruptibility"
-      },
-      {
-          "name": "Duration",
-          "displayPropName": "Duration (secs)",
-          "type": "String",
-          "controlType": "text",
-          "modelName": "setDuration",
-          "mapping": "duration"
-      },
-      {
-          "name": "IterateCount",
-          "displayPropName": "Iterate count",
-          "type": "String",
-          "controlType": "text",
-          "modelName": "setIterateCount",
-          "mapping": "iterateCount"
-      },
-      {
-          "name": "AnnouncementForever",
-          "displayPropName": "Announce forever",
-          "type": "String",
-          "controlType": "checkbox",
-          "filler": "getInstance.booleanType",
-             "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
-          "modelName": "setAnnouncementForever",
-          "mapping": "announcementForever"
-      },
-      {
+},
+{
+"name": "AAA Play Announcement",
+"snapinVersion": "3.0",
+"displayName": "AAA Play",
+"tag": "TTSANDPLAYAI",
+"async": "true", //Definitivo causa por la que no se detiene la tarea dinámica o si se detiene la tarea dinámica
+"svg": "speak",
+"helpUrl": "ttsandplay.html",
+"tile": "green",
+"serviceName": "CollabDesigner",
+"custom": "false",
+"nodeType": "activity",
+"modelClass": "com.avaya.AAADEVAI.TTSANDPLAYModel",
+"executionClass": "com.avaya.AAADEVAI.TTSANDPLAYExecution",
+"mapping": "[\"input\", \"output\"]",
+"displayProperties": "[{\"mapping\": [{\"Media-URI\": \"mediauri\"}]}, {\"properties\": [\"Media-URI\", \"MediaFile\"]}]",
+"properties": [
+{
+    "name": "Media-URI",
+    "displayPropName": "Text",
+    "type": "String",
+    "controlType": "multilineText",
+    "textLines": "7",
+    "modelName": "setMediaUri",
+    "mapping": "mediauri"
+},
+{
+    "name": "Handle",
+    "displayPropName": "Handle",
+    "type": "String",
+    "controlType": "text",
+    "modelName": "setHandle",
+    "mapping": "handle"
+},
+{
+    "name": "Participant",
+    "displayPropName": "Play announcement to",
+    "type": "String",
+    "controlType": "combo",
+    "filler": "getInstance.participantTypeForPA",
+    "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+    "modelName": "setParticipant",
+    "mapping": "participant"
+},
+{
+    "name": "UseLocale",
+    "displayPropName": "Use locale",
+    "type": "String",
+    "controlType": "checkbox",
+    "filler": "getInstance.booleanType",
+    "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+    "modelName": "setUseLocale",
+    "mapping": "useLocale"
+},
+{
+    "name": "Locale",
+    "displayPropName": "Locale",
+    "type": "String",
+    "controlType": "text",
+    "modelName": "setLocale",
+    "mapping": "locale"
+},
+{
+    "name": "Interruptibility",
+    "displayPropName": "Interrupt announcement",
+    "type": "String",
+    "controlType": "checkbox",
+    "filler": "getInstance.booleanType",
+    "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+    "modelName": "setInterruptibility",
+    "mapping": "interruptibility"
+},
+{
+    "name": "Duration",
+    "displayPropName": "Duration (secs)",
+    "type": "String",
+    "controlType": "text",
+    "modelName": "setDuration",
+    "mapping": "duration"
+},
+{
+    "name": "IterateCount",
+    "displayPropName": "Iterate count",
+    "type": "String",
+    "controlType": "text",
+    "modelName": "setIterateCount",
+    "mapping": "iterateCount"
+},
+{
+    "name": "AnnouncementForever",
+    "displayPropName": "Announce forever",
+    "type": "String",
+    "controlType": "checkbox",
+    "filler": "getInstance.booleanType",
+    "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+    "modelName": "setAnnouncementForever",
+    "mapping": "announcementForever"
+},
+/*   {
         "name": "userName",
         "displayPropName": "User",
         "type": "String",
@@ -315,70 +317,73 @@
         "controlType": "password",
         "modelName": "setPassword",
         "mapping":"userName"
-    },                        {
-        "name": "voice",
-        "displayPropName": "Select the voice, according to the language",
-        "type": "String",
-        "controlType": "combo",
-        "modelName": "setVoice",
-        "filler": "getInstance.comboVoice",
-        "fillerModel": "com.avaya.AAADEVAI.FillerUtil"
-    },                  {
+},*/ {
+    "name": "voice",
+    "displayPropName": "Select the voice, according to the language",
+    "type": "String",
+    "controlType": "combo",
+    "modelName": "setVoice",
+    "filler": "getInstance.comboVoice",
+    "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+    "mapping": "voice"
+} /*,                  {
         "name": "domain",
         "displayPropName": "FQDN",
         "type": "String",
         "controlType": "text",
         "modelName": "setDomain",
         "mapping":"domain"
-    }
-      ],
-    "input_schema": "{ 
+    }*/
+],
+"input_schema": "{ 
           title: PlayAnnouncementInputSchema,
           type: object,
           properties: {
               ucid: {
                   type: string
-              },
+},
               mediauri: {
                   type: string
-              },
+},
               handle: {
                   type: string
-              },
+},
               participant: {
                   type: string
-              },
+},
               interruptibility: {
                   type: string
-              },
+},
               duration: {
                   type: string
-              },
+},
               iterateCount: {
                   type: string
-              },
+},
               announcementForever: {
                   type: string
-              },
+},
               locale: {
                   type: string
-              },
+},
               useLocale: {
                   type: string
-              },
-              domain: {
-                  type: string
-              }
-          }
-      }",
+},
+              voice: {
+                type: string
+}
+}
+}",
       "output_schema": "{ 
           title:PlayAnnouncementOutputSchema,
           type:object,
-          properties:{
-              ucid:{ type:string },
-              status:{ type:string }
-          }
-      }"
+          properties: {
+              ucid: { type:string
+},
+              status: { type:string
+}
+}
+}"
 },
 //{
 //     "name": "AAA TextToSpeech",
@@ -438,7 +443,6 @@
 //             ucid: {
 //                 type: string
 //             }
-
 //         }
 // }",
 //     "output_schema": "{
@@ -455,56 +459,58 @@
 //     }"
 // },
 {
-    "name": "AAA Speech To Text",
-    "snapinVersion": "3.0",
+"name": "AAA Speech To Text",
+"snapinVersion": "3.0",
 "displayName": "AAA Speech To Text",
-    "tag": "STTAAAAI",
-    "svg": "writing",
-    "helpUrl": "STTHelp.html",
-    "tile": "red",
-    "serviceName": "CollabDesigner",
-    "custom": "true",
-    "nodeType": "activity",
-    "modelClass": "com.avaya.AAADEVAI.SpeechToTextModel",
-    "executionClass": "com.avaya.AAADEVAI.SpeechToTextExecution",
+"tag": "STTAAAAI",
+"svg": "writing",
+"helpUrl": "STTHelp.html",
+"tile": "blue",
+"serviceName": "CollabDesigner",
+"custom": "true",
+"nodeType": "activity",
+"modelClass": "com.avaya.AAADEVAI.SpeechToTextModel",
+"executionClass": "com.avaya.AAADEVAI.SpeechToTextExecution",
 "mapping": "[\"input\", \"output\"]",
-    "properties": [
-        {
-            "name": "url",
-            "displayPropName": "URL",
-            "type": "String",
-            "controlType": "text",
-            "modelName": "setUrl",
-            "mapping": "url"
-          },
-          {
-            "name": "language",
-            "displayPropName": "Language Code",
-            "type": "String",
-            "controlType": "combo",
-            "modelName": "setLanguage",
-            "mapping": "language",
-            "filler": "getInstance.comboLanguage",
-            "fillerModel": "com.avaya.AAADEVAI.FillerUtil"
-          },
-          {
-            "name": "apiKey",
-            "displayPropName": "ApiKey",
-            "type": "String",
-            "controlType": "password",
-            "modelName": "setApiKey",
-            "mapping": "apiKey"
-          }
-    ],
+"properties": [
+{
+"name": "url",
+"displayPropName": "URL",
+"type": "String",
+"controlType": "text",
+"modelName": "setUrl",
+"mapping": "url"
+},
+{
+"name": "language",
+"displayPropName": "Language Code",
+"type": "String",
+"controlType": "combo",
+"modelName": "setLanguage",
+"mapping": "language",
+"filler": "getInstance.comboLanguage",
+"fillerModel": "com.avaya.AAADEVAI.FillerUtil"
+},
+{
+"name": "apiKey",
+"displayPropName": "ApiKey",
+"type": "String",
+"controlType": "password",
+"modelName": "setApiKey",
+"mapping": "apiKey"
+}
+],
 "input_schema": "{
         title: InputSchema,
         type: object,
         properties: {
             url: {
                 type: string
-            }
-
-        }
+},
+            language: {
+                type: string
+}
+}
 }",
     "output_schema": "{
             title: OutputSchema,
@@ -512,132 +518,132 @@
             properties: {
                 status: {
                     type: string
-                },
-                transcripcion:{
-                     type: string
-                },
-                confianza:{
-                    type: string
-                }
-            }
-    }"
 },
-        {
-            "name": "AAA Play And Collect",
-            "snapinVersion": "3.0",
-            "displayName": "AAA Play And Collect",
-            "async": "true",
-            "tag": "AAAPLAYANDCOLLECT",
-            "svg": "marketing",
-            "helpUrl": "ttsplayandcollect.html",
-            "tile": "green",
-            "serviceName": "CollabDesigner",
-            "custom": "true",
-            "nodeType": "activity",
-            "modelClass": "com.avaya.AAADEVAI.PlayAndCollectModel",
-            "executionClass": "com.avaya.AAADEVAI.PlayAndCollectExecution",
-            "mapping": "[\"input\", \"output\"]",
-            "displayProperties": "[{\"mapping\": [{\"Media-URI\": \"mediauri\"}]}, {\"properties\": [\"Media-URI\", \"MediaFile\"]}]",
-            "properties": [
-                {
-                    "name": "Media-URI",
-                    "displayPropName": "Media URI /Text/cstoreURI",
-                    "type": "String",
-                    "controlType": "multilineText",
-                    "textLines" : "7",
-                    "modelName": "setMediaUri",
-                    "mapping": "mediauri"
-                  },
-                 {
-                    "name": "Locale",
-                    "displayPropName": "Locale",
-                    "type": "String",
-                    "controlType": "text",
-                    "modelName": "setLocale",
-                    "mapping": "locale"
-                 },
-                  {
-                    "name": "NumberOfDigits",
-                    "displayPropName": "Number of digits",
-                    "type": "String",
-                    "controlType": "text",
-                    "modelName": "setNumberOfDigits",
-                    "mapping": "numberOfDigits"
-                  },
-                  {
-                    "name": "TerminationKey",
-                    "displayPropName": "Termination key",
-                    "type": "String",
-                    "controlType": "text",
-                    "modelName": "setTerminationKey",
-                    "mapping": "terminationKey"
-                  },
-                  {
-                    "name": "Handle",
-                    "displayPropName": "Handle",
-                    "type": "String",
-                    "controlType": "text",
-                    "modelName": "setHandle",
-                    "mapping": "handle"
-                  },
-                   {
-                    "name": "Participant",
-                    "displayPropName": "Collect digits from",
-                    "type": "String",
-                    "controlType": "combo",
-                    "filler": "getInstance.participantType",
-                       "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
-                    "modelName": "setParticipant",
-                    "mapping": "participant"
-                  },
-                  {
-                    "name": "Interruptibility",
-                    "displayPropName": "Interrupt announcement",
-                    "type": "String",
-                    "controlType": "checkbox",
-                    "filler": "getInstance.booleanType",
-                       "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
-                    "modelName": "setInterruptibility",
-                    "mapping": "interruptibility"
-                  },
-                  {
-                    "name": "Duration",
-                    "displayPropName": "Duration (secs)",
-                    "type": "String",
-                    "controlType": "text",
-                    "modelName": "setDuration",
-                    "mapping": "duration",
-                    "show": "false"
-                  },
-                  {
-                    "name": "IterateCount",
-                    "displayPropName": "Iterate count",
-                    "type": "String",
-                    "controlType": "text",
-                    "modelName": "setIterateCount",
-                    "mapping": "iterateCount",
-                    "show": "false"
-                  },
-                  {
-                    "name": "Timeout",
-                    "displayPropName": "Timeout (secs)",
-                    "type": "String",
-                    "controlType": "text",
-                    "modelName": "setTimeout",
-                    "mapping": "timeout"
-                  },
-                  {
-                    "name": "IsFlush",
-                    "displayPropName": "Clear collected digit buffer",
-                    "type": "String",
-                    "controlType": "checkbox",
-                    "filler": "getInstance.booleanType",
-                       "fillerModel": "com.avaya.AAADEVAI.FillerUtil",
-                    "modelName": "setIsFlush",
-                    "mapping": "isFlush",
-                    "show": "false"
-                  },
-                  {
+                transcripcion: {
+                     type: string
+},
+                confianza: {
+                    type: string
+}
+}
+}"
+},
+{
+"name": "AAA Play And Collect",
+"snapinVersion": "3.0",
+"displayName": "AAA Play And Collect",
+"async": "true",
+"tag": "AAAPLAYANDCOLLECT",
+"svg": "marketing",
+"helpUrl": "ttsplayandcollect.html",
+"tile": "green",
+"serviceName": "CollabDesigner",
+"custom": "true",
+"nodeType": "activity",
+"modelClass": "com.avaya.AAADEVAI.PlayAndCollectModel",
+"executionClass": "com.avaya.AAADEVAI.PlayAndCollectExecution",
+"mapping": "[\"input\", \"output\"]",
+"displayProperties": "[{\"mapping\": [{\"Media-URI\": \"mediauri\"}]}, {\"properties\": [\"Media-URI\", \"MediaFile\"]}]",
+"properties": [
+{
+"name": "Media-URI",
+"displayPropName": "Media URI /Text/cstoreURI",
+"type": "String",
+"controlType": "multilineText",
+"textLines": "7",
+"modelName": "setMediaUri",
+"mapping": "mediauri"
+},
+{
+"name": "Locale",
+"displayPropName": "Locale",
+"type": "String",
+"controlType": "text",
+"modelName": "setLocale",
+"mapping": "locale"
+},
+{
+"name": "NumberOfDigits",
+"displayPropName": "Number of digits",
+"type": "String",
+"controlType": "text",
+"modelName": "setNumberOfDigits",
+"mapping": "numberOfDigits"
+},
+{
+"name": "TerminationKey",
+"displayPropName": "Termination key",
+"type": "String",
+"controlType": "text",
+"modelName": "setTerminationKey",
+"mapping": "terminationKey"
+},
+{
+"name": "Handle",
+"displayPropName": "Handle",
+"type": "String",
+"controlType": "text",
+"modelName": "setHandle",
+"mapping": "handle"
+},
+{
+"name": "Participant",
+"displayPropName": "Collect digits from",
+"type": "String",
+"controlType": "combo",
+"filler": "getInstance.participantType",
+"fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+"modelName": "setParticipant",
+"mapping": "participant"
+},
+{
+"name": "Interruptibility",
+"displayPropName": "Interrupt announcement",
+"type": "String",
+"controlType": "checkbox",
+"filler": "getInstance.booleanType",
+"fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+"modelName": "setInterruptibility",
+"mapping": "interruptibility"
+},
+{
+"name": "Duration",
+"displayPropName": "Duration (secs)",
+"type": "String",
+"controlType": "text",
+"modelName": "setDuration",
+"mapping": "duration",
+"show": "false"
+},
+{
+"name": "IterateCount",
+"displayPropName": "Iterate count",
+"type": "String",
+"controlType": "text",
+"modelName": "setIterateCount",
+"mapping": "iterateCount",
+"show": "false"
+},
+{
+"name": "Timeout",
+"displayPropName": "Timeout (secs)",
+"type": "String",
+"controlType": "text",
+"modelName": "setTimeout",
+"mapping": "timeout"
+},
+{
+"name": "IsFlush",
+"displayPropName": "Clear collected digit buffer",
+"type": "String",
+"controlType": "checkbox",
+"filler": "getInstance.booleanType",
+"fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+"modelName": "setIsFlush",
+"mapping": "isFlush",
+"show": "false"
+},
+/*                  {
                     "name": "userName",
                     "displayPropName": "User",
                     "type": "String",
@@ -652,79 +658,369 @@
                     "controlType": "password",
                     "modelName": "setPassword",
                     "mapping":"userName"
-                },                        {
-                    "name": "voice",
-                    "displayPropName": "Select the voice, according to the language",
-                    "type": "String",
-                    "controlType": "combo",
-                    "modelName": "setVoice",
-                    "filler": "getInstance.comboVoice",
-                    "fillerModel": "com.avaya.AAADEVAI.FillerUtil"
-                },                  {
+},*/ {
+"name": "voice",
+"displayPropName": "Select the voice, according to the language",
+"type": "String",
+"controlType": "combo",
+"modelName": "setVoice",
+"filler": "getInstance.comboVoice",
+"fillerModel": "com.avaya.AAADEVAI.FillerUtil",
+"mapping": "voice"
+} /*,                  {
                     "name": "domain",
                     "displayPropName": "FQDN",
                     "type": "String",
                     "controlType": "text",
                     "modelName": "setDomain",
                     "mapping":"domain"
-                }
-            ],
-            "input_schema": "{ 
+                }*/
+],
+"input_schema": "{ 
                 title: PlayCollectInputSchema,
                 type: object,
                 properties: {
                     ucid: {
                         type: string
-                    },
+},
                     mediauri: {
                         type: string
-                    },
+},
                     interruptibility: {
                         type: string
-                    },
+},
                     duration: {
                         type: string
-                    },
+},
                     handle: {
                         type: string
-                    },
+},
                     participant: {
                         type: string
-                    },
+},
                     numberOfDigits: {
                         type: string
-                    },
+},
                     terminationKey: {
                         type: string
-                    },
+},
                     iterateCount: {
                         type: string
-                    },
+},
                     timeout: {
                         type: string
-                    },
+},
                     isFlush: {
                         type: string
-                    },
+},
                     locale: {
                         type: string
-                    },
-                    domain: {
+},
+                    voice: {
                         type: string
-                    }
-                }
-            }",
+}
+}
+}",
             "output_schema": "{ 
                 title:PlayCollectOutputSchema,
                 type:object,
-                properties:{
-                    ucid:{ type:string },
-                    digits:{ type:string },
-                    status:{ type:string }
-                }
-            }"
+                properties: {
+                    ucid: { type:string
+},
+                    digits: { type:string
+},
+                    status: { type:string
 }
-        ]
-  }
+}
+}"
+}
+]
+},
+{
+"name": "AAA AI Watson Assistant Conversation",
+"mTypes": [
+{
+"name": "Create Session",
+"snapinVersion": "3.0",
+"displayName": "Create",
+"tag": "CreateSessionWAC",
+"svg": "hello",
+"helpUrl": "hello.html",
+"tile": "blue",
+"serviceName": "CollabDesigner",
+"custom": "true",
+"nodeType": "activity",
+"modelClass": "com.avaya.AAADEVAI.WatsonAssistantConversation.CreateSession.CreateSessionModel",
+"executionClass": "com.avaya.AAADEVAI.WatsonAssistantConversation.CreateSession.CreateSessionExecution",
+"mapping": "[\"input\", \"output\"]",
+"properties": [
+{
+"name": "userNameCreateSession",
+"displayPropName": "User Name provided by IBM Watson Assistant",
+"type": "String",
+"controlType": "text",
+"modelName": "setUserNameCreateSession",
+"mapping": "userNameCreateSession"
+},
+{
+"name": "passwordCreateSession",
+"displayPropName": "Password provided by IBM Watson Assistant",
+"type": "String",
+"controlType": "text",
+"modelName": "setPasswordCreateSession",
+"mapping": "passwordCreateSession"
+},
+{
+"name": "assistantIdCreateSession",
+"displayPropName": "Assistant ID",
+"type": "String",
+"controlType": "text",
+"modelName": "setAssistantIdCreateSession",
+"mapping": "assistantIdCreateSession"
+},
+{
+"name": "versionCreateSession",
+"displayPropName": "Version API",
+"type": "String",
+"controlType": "text",
+"modelName": "setVersionCreateSession",
+"mapping": "versionCreateSession"
+}
+],
+"input_schema": "{
+            title: InputSchema,
+            type: object,
+            properties: {
+                userNameCreateSession: {
+                    type: string
+},
+                passwordCreateSession: {
+                    type: string
+},
+                assistantIdCreateSession: {
+                    type: string
+},
+                versionCreateSession: {
+                    type: string
+}
+}
+}",
+        "output_schema": "{
+                title: OutputSchema,
+                type: object,
+                properties: {
+                    session_id: {
+                        type: string
+}
+}
+}"
+},
+{
+"name": "Delete Session",
+"snapinVersion": "3.0",
+"displayName": "Delete",
+"tag": "DeleteSessionWAC",
+"svg": "hello",
+"helpUrl": "hello.html",
+"tile": "blue",
+"serviceName": "CollabDesigner",
+"custom": "true",
+"nodeType": "activity",
+"modelClass": "com.avaya.AAADEVAI.WatsonAssistantConversation.DeleteSession.DeleteSessionModel",
+"executionClass": "com.avaya.AAADEVAI.WatsonAssistantConversation.DeleteSession.DeleteSessionExecution",
+"mapping": "[\"input\", \"output\"]",
+"properties": [
+{
+"name": "userNameDeleteSession",
+"displayPropName": "User Name provided by IBM Watson Assistant",
+"type": "String",
+"controlType": "text",
+"modelName": "setUserNameDeleteSession",
+"mapping": "userNameDeleteSession"
+},
+{
+"name": "passwordDeleteSession",
+"displayPropName": "Password provided by IBM Watson Assistant",
+"type": "String",
+"controlType": "text",
+"modelName": "setPasswordDeleteSession",
+"mapping": "passwordDeleteSession"
+},
+{
+"name": "assistantIdDeleteSession",
+"displayPropName": "Assistant ID",
+"type": "String",
+"controlType": "text",
+"modelName": "setAssistantIdDeleteSession",
+"mapping": "assistantIdDeleteSession"
+},
+{
+"name": "versionDeleteSession",
+"displayPropName": "Version API",
+"type": "String",
+"controlType": "text",
+"modelName": "setVersionDeleteSession",
+"mapping": "versionDeleteSession"
+},
+{
+"name": "sessionDeleteSession",
+"displayPropName": "Session that you want to finish",
+"type": "String",
+"controlType": "text",
+"modelName": "setSessionDeleteSession",
+"mapping": "sessionDeleteSession"
+}
+],
+"input_schema": "{
+    title: InputSchema,
+    type: object,
+    properties: {
+        userNameDeleteSession: {
+            type: string
+},
+        passwordDeleteSession: {
+            type: string
+},
+        assistantIdDeleteSession: {
+            type: string
+},
+        versionDeleteSession: {
+            type: string
+},
+        sessionDeleteSession: {
+            type: string
+}
+}
+}",
+"output_schema": "{
+        title: OutputSchema,
+        type: object,
+        properties: {
+            status: {
+                type: string
+}
+}
+}"
+},
+{
+"name": "Send Text Session",
+"snapinVersion": "3.0",
+"displayName": "Text",
+"tag": "SendTextSessionWAC",
+"svg": "hello",
+"helpUrl": "hello.html",
+"tile": "blue",
+"serviceName": "CollabDesigner",
+"custom": "true",
+"nodeType": "activity",
+"modelClass": "com.avaya.AAADEVAI.WatsonAssistantConversation.SendText.SendTextModel",
+"executionClass": "com.avaya.AAADEVAI.WatsonAssistantConversation.SendText.SendTextExecution",
+"mapping": "[\"input\", \"output\"]",
+"properties": [
+{
+"name": "userNameSendText",
+"displayPropName": "User Name provided by IBM Watson Assistant",
+"type": "String",
+"controlType": "text",
+"modelName": "setUserNameSendText",
+"mapping": "userNameSendText"
+},
+{
+"name": "passwordSendText",
+"displayPropName": "Password provided by IBM Watson Assistant",
+"type": "String",
+"controlType": "text",
+"modelName": "setPasswordSendText",
+"mapping": "passwordSendText"
+},
+{
+"name": "assistantIdSendText",
+"displayPropName": "Assistant ID",
+"type": "String",
+"controlType": "text",
+"modelName": "setAssistantIdSendText",
+"mapping": "assistantIdSendText"
+},
+{
+"name": "versionSendText",
+"displayPropName": "Version API",
+"type": "String",
+"controlType": "text",
+"modelName": "setVersionSendText",
+"mapping": "versionSendText"
+},
+{
+"name": "sessionSendText",
+"displayPropName": "Session created previously.",
+"type": "String",
+"controlType": "text",
+"modelName": "setSessionSendText",
+"mapping": "sessionSendText"
+},
+{
+"name": "textSendText",
+"displayPropName": "Text that will be sent to analyze",
+"type": "String",
+"controlType": "text",
+"modelName": "setTextSendText",
+"mapping": "textSendText"
+}
+],
+"input_schema": "{
+    title: InputSchema,
+    type: object,
+    properties: {
+        userNameSendText: {
+            type: string
+},
+        passwordSendText: {
+            type: string
+},
+        assistantIdSendText: {
+            type: string
+},
+        versionSendText: {
+            type: string
+},
+        sessionSendText: {
+            type: string
+},
+        textSendText: {
+            type: string
+}
+}
+}",
+"output_schema": "{ 
+    title : OutputSchema ,
+    type : object, 
+    properties : { 
+        output: { 
+            type:object , 
+            properties : { generic : { 
+                    type : array , 
+                    items : { type : object , 
+                        properties : { response_type : { type : string
+}, 
+                            text : { type : string
+}
+}
+}
+},
+                             
+                            intents : { type : array , items : { type : object , properties : { intent : { type : string
+}, confidence : { type : string
+}
+}
+}
+}, entities : { type : array , items : { type : object
+}
+}
+}
+}
+}
+}"
+}
+]
+}
 ]
 }

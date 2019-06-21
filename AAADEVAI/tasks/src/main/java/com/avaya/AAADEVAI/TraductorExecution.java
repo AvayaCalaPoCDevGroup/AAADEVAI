@@ -54,7 +54,13 @@ public class TraductorExecution extends NodeInstance {
 //		password = CryptoUtil.getInstance().decrypt(password);
 		
 		String user = "apikey";
-		String modelId = traductor.getModelId();
+		
+		
+		String modelId = (String)get("modelid");
+		if((modelId == null) || (modelId.isEmpty())){
+			modelId = traductor.getModelId();
+		}
+		
 		
 		if(modelId.equals("es-en")){
 			BuscarYRemplazarAcentos español = new BuscarYRemplazarAcentos();
@@ -66,6 +72,7 @@ public class TraductorExecution extends NodeInstance {
 		}
 		
 		final String resultTraductor = callWatsonTraductor(user, password, content, modelId);
+		
 		if (resultTraductor == null) {
 			obj.put("status", "Failure");
 		} else {
