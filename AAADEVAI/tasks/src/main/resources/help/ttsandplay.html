@@ -15,7 +15,7 @@
 
     <h4 style="font: bold">Propiedades de la tarea</h4>
     <ul>
-        <li>Texto - Texto de entrada para crear el audio que se reproducirá en la llamda</li>
+        <li>Texto To Speech or Media URI - Texto de entrada para crear el audio que se reproducirá en la llamda o URL para obtener el archivo de audio</li>
         <li>Handle - El número / dirección para quien se reproducirá el anuncio.</li>
         <li>Play announcement to:
             <ul>
@@ -31,21 +31,23 @@
         <li>Iterate count - El número de veces que se reproduce el anuncio.</li>
         <li>Announce forever (Optional) - Configura los medios para que se reproduzcan para siempre sin ser interrumpidos por el vencimiento de un temporizador. Los parámetros de duración y recuento de iteraciones no se utilizan cuando este indicador se establece
             en verdadero. El valor predeterminado es falso.</li>
-        <li>Usuario - Usuario proporcionado por IBM watson al crear el servicio desde el portal IBM bluemix</li>
-        <li>Password - Password proporcionada por IBM watson al crear el servicio desde el portal IBM bluemix</li>
-        <li>Seleccionar la voz, se acuerdo al idioma - De acuerdo al idioma del texto introducido se deberá seleccionar la voz</li>
+        <li>Cloud Provider- Opción para seleccioner el tipo de proveedor para realizar Text To Speech</li>
         <ul>
-            <li>es-ES_LauraVoice - Castellano</li>
-            <li>pt-BR_IsabelaVoice - Portugües Brazil</li>
-            <li>en-US_AllisonVoice - Ingles US</li>
+            <li>Google</li>
+            <li>IBM</li>
         </ul>
-        <li>
-            <p>Dominio: Ingresar el dominio donde se encuentra instalada la aplicación AAADEVLOGGER</p>
-        </li>
+        <li>Select The Language - Opción para seleccioner el idióma de para realizar Text To Speech</li>
+        <ul>
+            <li>es - Español</li>
+            <li>en - Ingles</li>
+            <li>pt - Portugües</li>
+        </ul>
+
     </ul>
     <h4 style="font: bold">Input schema</h4>
     <ul>
         <li>ucid (Universal Call Identifier) (mandatory) - Identificador de llamada de la llamada donde se reproduce el anuncio. Asigne el ucid desde el appid del evento Call o desde el esquema de salida de la tarea Make Call.</li>
+        <li>mediauri - Texto de entrada para crear el audio que se reproducirá en la llamda o URL para obtener el archivo de audio</li>
         <li>handle - El número / dirección para quien se reproducirá el anuncio.</li>
         <li>participant - El destinatario del anuncio: la parte llamada o la parte que llama. Entradas válidas: callid, llamada, llamada.</li>
         <li>interruptibility (optional) - Determina si el anuncio de audio se interrumpe cuando se presiona un dígito. Verdadero (predeterminado), interrumpe el anuncio. Falso no lo hace.</li>
@@ -56,6 +58,8 @@
         <li>locale - Lenguaje de solicitud admitido por Avaya Aura® Media Server (MS).</li>
         <li>useLocale - Se aceptan valores verdaderos y falsos. Si es verdadero, la asignación / propiedad de la configuración regional se utiliza para reproducir medios. Si no se proporciona, se utiliza el atributo de configuración regional predeterminado
             de System Manager.</li>
+        <li>language - Opción para seleccioner el idióma de para realizar Text To Speech</li>
+        <li>cloudProvider- Opción para seleccioner el tipo de proveedor para realizar Text To Speech</li>
     </ul>
 
     <h4 style="font: bold">Output schema</h4>
@@ -70,9 +74,6 @@
             </ul>
         </li>
     </ul>
-
-    <h4>Prerequisitos</h4>
-    <p>Usuario y password proporcionados por IBM bluemix</p>
 
     <h4>Casos de uso</h4>
     <p>La conversión texto-voz es la generación por medios automáticos de una voz artificial que genera el sonido producido por una persona al leer un texto cualquiera en voz alta. o una voz artificial. Es decir, son sistemas que permiten la conversión de

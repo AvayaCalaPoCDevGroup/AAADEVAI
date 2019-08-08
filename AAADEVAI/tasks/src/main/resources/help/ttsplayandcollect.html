@@ -55,24 +55,18 @@
                 </li>
                 <li>
                     <p>Timeout (optional): Número de segundos a esperar para recibir el primer dígito. El valor predeterminado es 60 segundos. Si no se recibe un dígito en el tiempo especificado, la WFD continúa con la siguiente tarea.</p>
-                </li>
-                <li>
-                    <p>Usuario - Usuario proporcionado por IBM watson al crear el servicio desde el portal IBM bluemix</p>
-                </li>
-                <li>
-                    <p>Password - Password proporcionada por IBM watson al crear el servicio desde el portal IBM bluemix</p>
-                </li>
-                <li>
-                    <p>Seleccionar la voz, se acuerdo al idioma - De acuerdo al idioma del texto introducido se deberá seleccionar la voz</p>
-                </li>
-                <ul>
-                    <li>es-ES_LauraVoice - Castellano</li>
-                    <li>pt-BR_IsabelaVoice - Portugües Brazil</li>
-                    <li>en-US_AllisonVoice - Ingles US</li>
-                </ul>
-                <li>
-                    <p>Dominio: Ingresar el dominio donde se encuentra instalada la aplicación AAADEVLOGGER</p>
-                </li>
+
+                    <li>Cloud Provider- Opción para seleccioner el tipo de proveedor para realizar Text To Speech</li>
+                    <ul>
+                        <li>Google</li>
+                        <li>IBM</li>
+                    </ul>
+                    <li>Select The Language - Opción para seleccioner el idióma de para realizar Text To Speech</li>
+                    <ul>
+                        <li>es - Español</li>
+                        <li>en - Ingles</li>
+                        <li>pt - Portugües</li>
+                    </ul>
             </ul>
 
             <p>Si se proporcionan los dígitos Handle y Collect from, entonces Handle tiene prioridad. Si no hay ninguno, se utiliza la parte que llama.</p>
@@ -82,6 +76,7 @@
         <h4 style="font: bold">Input schema</h4>
         <ul>
             <li>ucid (Universal Call Identifier) (mandatory) - Identificador de llamada de la llamada donde se reproduce el anuncio. Asigne el ucid desde el appid del evento Call o desde el esquema de salida de la tarea Make Call.</li>
+            <li>mediauri - Texto de entrada para crear el audio que se reproducirá en la llamda o URL para obtener el archivo de audio</li>
             <li>handle - El número / dirección para quien se reproducirá el anuncio.</li>
             <li>participant - El destinatario del anuncio: la parte llamada o la parte que llama. Entradas válidas: callid, llamada, llamada.</li>
             <li>interruptibility (optional) - Determina si el anuncio de audio se interrumpe cuando se presiona un dígito. Verdadero (predeterminado), interrumpe el anuncio. Falso no lo hace.</li>
@@ -92,7 +87,8 @@
             <li>locale - Lenguaje de solicitud admitido por Avaya Aura® Media Server (MS).</li>
             <li>useLocale - Se aceptan valores verdaderos y falsos. Si es verdadero, la asignación / propiedad de la configuración regional se utiliza para reproducir medios. Si no se proporciona, se utiliza el atributo de configuración regional predeterminado
                 de System Manager.</li>
-            <li>domain - Ingresar el dominio donde se encuentra instalada la aplicación AAADEVLOGGER</li>
+            <li>language - Opción para seleccioner el idióma de para realizar Text To Speech</li>
+            <li>cloudProvider- Opción para seleccioner el tipo de proveedor para realizar Text To Speech</li>
         </ul>
 
         <p class=>Si se asignan los dígitos de Handle y Collect from, entonces Handle tiene prioridad. Si no hay ninguno, se utiliza la parte que llama.</p>
@@ -153,8 +149,6 @@
         <p>No aplica.</p>
     </div>
 
-    <h4>Prerequisitos</h4>
-    <p>Usuario y password proporcionados por IBM bluemix</p>
     <h4>Casos de uso</h4>
     <p>La conversión texto-voz es la generación por medios automáticos de una voz artificial que genera el sonido producido por una persona al leer un texto cualquiera en voz alta. o una voz artificial. Es decir, son sistemas que permiten la conversión de
         textos en voz sintética. Los conversores de texto-voz son conocidos también con las siglas CTV o por las siglas en inglés TTS (Text To Speech).</p>

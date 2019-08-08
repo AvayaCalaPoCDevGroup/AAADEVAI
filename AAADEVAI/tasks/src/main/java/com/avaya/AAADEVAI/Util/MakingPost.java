@@ -1,4 +1,4 @@
-package com.avaya.AAADEVAI;
+package com.avaya.AAADEVAI.Util;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.avaya.AAADEVAI;
+package com.avaya.AAADEVAI.Util;
 
 import java.util.List;
 import java.util.UUID;

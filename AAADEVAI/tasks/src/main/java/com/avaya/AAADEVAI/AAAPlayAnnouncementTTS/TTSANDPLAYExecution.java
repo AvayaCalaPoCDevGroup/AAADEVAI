@@ -1,36 +1,21 @@
-package com.avaya.AAADEVAI;
+package com.avaya.AAADEVAI.AAAPlayAnnouncementTTS;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.SSLContext;
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.xml.bind.DatatypeConverter;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.HttpClients;
 import org.json.JSONObject;
 
+import com.avaya.AAADEVAI.BuscarYRemplazarAcentos;
+import com.avaya.AAADEVAI.ServiceAttributeManager;
+import com.avaya.AAADEVAI.AAAPlayAnnouncementTTS.Https.Google;
+import com.avaya.AAADEVAI.AAAPlayAnnouncementTTS.Https.IBM;
+import com.avaya.AAADEVAI.Security.AES;
+import com.avaya.AAADEVAI.Util.CommTaskUtil;
+import com.avaya.AAADEVAI.Util.WFMediaListener;
+import com.avaya.AAADEVAI.Util.WFMediaUtil;
 import com.avaya.app.entity.Instance;
 import com.avaya.app.entity.NodeInstance;
 import com.avaya.collaboration.call.Call;
@@ -39,10 +24,9 @@ import com.avaya.collaboration.call.Participant;
 import com.avaya.collaboration.call.media.MediaFactory;
 import com.avaya.collaboration.call.media.MediaService;
 import com.avaya.collaboration.eventing.EventingFactory;
-import com.avaya.collaboration.ssl.util.SSLProtocolType;
-import com.avaya.collaboration.ssl.util.SSLUtilityFactory;
+import com.avaya.workflow.logger.Logger;
+import com.avaya.workflow.logger.LoggerFactory;
 import com.roobroo.bpm.model.BpmNode;
-import com.avaya.workflow.logger.*;
 
 public class TTSANDPLAYExecution extends NodeInstance {
 
@@ -53,21 +37,12 @@ public class TTSANDPLAYExecution extends NodeInstance {
 	private static Logger log = LoggerFactory
 			.getLogger(TTSANDPLAYExecution.class);
 
-	private static final int DEFAULT_MEDIA_LENGTH = -1;
-	private static final int DEFAULT_ITERATE_COUNT = 1;
-	private static final String NO_DEFAULT_VALUE = "-1";
 	private String ucid;
 	private volatile boolean isInstanceResumed;
 	private WFMediaListener mediaListener;
-	private MediaService mediaService;
 	/*
 	 * TextToSpeech
 	 */
-	private String userHomeDir = System.getProperty("user.home");
-	private String osName = System.getProperty("os.name");
-	public static int filesize;
-	private Call call;
-
 	public TTSANDPLAYExecution(Instance instance, BpmNode node) {
 		super(instance, node);
 	}
@@ -117,13 +92,9 @@ public class TTSANDPLAYExecution extends NodeInstance {
 						.getServiceAttribute("avayaMediaServerLocale");
 			}
 		}
-		/*
-		 * Text To Speech
-		 */
-		log.info("AAADEVTTSANDPLAY Text To Speech");
 
 		
-
+		
 		String mediaFileURI = (String) get("mediauri");
 		if ((mediaFileURI == null) || (mediaFileURI.isEmpty())) {
 			mediaFileURI = model.getMediaUri();
@@ -133,149 +104,86 @@ public class TTSANDPLAYExecution extends NodeInstance {
 		retval = mediaFileURI.contains("http://");
 		retva2 = mediaFileURI.contains("https://");
 
-		String domain = "10.0.0.10";
-		// if ((domain == null) || (domain.isEmpty())) {
-		// domain = model.getDomain();
-		// }
-
-		log.info("AAADEVTTSANDPLAY media File Uri " + mediaFileURI);
-
 		if (retval == true || retva2 == true) {
 
 		} else {
-
-			String voice = (String) get("voice");
+			
+			/*
+			 * Text To Speech
+			 */
+			String voice = (String) get("language");
 			if ((voice == null) || (voice.isEmpty())) {
-				voice = model.getVoice();
+				voice = model.getLanguage();
+				if(voice == null || voice.isEmpty()){
+					voice = "es";
+				}
 			}
 
-			if (voice.equals("es-ES_LauraVoice")
-					|| voice.equals("es-ES_EnriqueVoice")
-					|| voice.equals("es-LA_SofiaVoice")
-					|| voice.equals("es-US_SofiaVoice")) {
-				BuscarYRemplazarAcentos español = new BuscarYRemplazarAcentos();
-				mediaFileURI = español.Español(mediaFileURI);
+			String cloudProvider = (String)get("cloudProvider");
+			if(cloudProvider == null || cloudProvider.isEmpty()){
+				cloudProvider = model.getCloudProvider();
+				if(cloudProvider == null || cloudProvider.isEmpty()){
+					cloudProvider = "Google";
+				}
 			}
-
-			if (voice.equals("pt-BR_IsabelaVoice")) {
-				BuscarYRemplazarAcentos portugues = new BuscarYRemplazarAcentos();
-				mediaFileURI = portugues.Portugues(mediaFileURI);
-			}
-			log.info("AAADEVTTSANDPLAY media File Uri " + mediaFileURI);
-			/*
-			 * Creando el HTTPS POST a Watson
-			 */
-			try {
-				log.info("AAADEVTTSANDPLAY Creando HTTP POST");
-				String user = "1a750c00-9343-4032-9e4d-dd485052692d";
-				String password = "g7rmue4UsCWP";
-
-				final SSLProtocolType protocolTypeTraductor = SSLProtocolType.TLSv1_2;
-				final SSLContext sslContextTraductor = SSLUtilityFactory
-						.createSSLContext(protocolTypeTraductor);
-				final CredentialsProvider provider = new BasicCredentialsProvider();
-				provider.setCredentials(AuthScope.ANY,
-						new UsernamePasswordCredentials(user, password));
-
-				final String URI = "https://stream.watsonplatform.net/text-to-speech/api/v1/synthesize?voice="
-						+ voice;
-
-				final HttpClient clientTTSpeech = HttpClients.custom()
-						.setSslcontext(sslContextTraductor)
-						.setHostnameVerifier(new AllowAllHostnameVerifier())
-						.build();
-				// final HttpClient clientTraductor = new DefaultHttpClient();
-
-				final HttpPost postTTSpeech = new HttpPost(URI);
-				postTTSpeech.addHeader("Accept", "audio/l16;rate=8000");
-				postTTSpeech.addHeader("Content-Type", "application/json");
-
-				final String authStringTTSpecch = user + ":" + password;
-				final String authEncBytesTTSpeech = DatatypeConverter
-						.printBase64Binary(authStringTTSpecch.getBytes());
-				postTTSpeech.addHeader("Authorization", "Basic "
-						+ authEncBytesTTSpeech);
-
-				final String messageBodyTTSpeech = "{\"text\":\""
-						+ mediaFileURI + "\"}";
-				final StringEntity conversationEntityTTSpeech = new StringEntity(
-						messageBodyTTSpeech);
-				postTTSpeech.setEntity(conversationEntityTTSpeech);
-
-				final HttpResponse responseTTSpeech = clientTTSpeech
-						.execute(postTTSpeech);
-
-				InputStream in = reWriteWaveHeader(responseTTSpeech.getEntity()
-						.getContent());
-				OutputStream out = new FileOutputStream("" + userHomeDir
-						+ "/TextToSpeech.wav");
-
-				byte[] buffer = new byte[filesize + 8];
-				int length;
-				while ((length = in.read(buffer)) > 0) {
-
-					InputStream byteAudioStream = new ByteArrayInputStream(
-							buffer);
-					AudioFormat audioFormat = new AudioFormat(8000.0f, 16, 1,
-							false, false);
-					AudioInputStream audioInputStream = new AudioInputStream(
-							byteAudioStream, audioFormat, buffer.length);
-					if (AudioSystem.isFileTypeSupported(
-							AudioFileFormat.Type.WAVE, audioInputStream)) {
-						AudioSystem.write(audioInputStream,
-								AudioFileFormat.Type.WAVE, out);
-					}
-
+			AES aes = new AES();
+			if(cloudProvider.equals("Google")){
+				String voiceGoogle = null;
+				String voiceNameGoogle = null;
+				if (voice.equals("es-ES")){
+					voiceGoogle = "es-ES";
+					voiceNameGoogle = "es-ES-Standard-A";
 				}
 
-				out.close();
-				in.close();
-				/*
-				 * Haciendo POST
-				 */
-
-				String status[] = { null, null };
-				if (ucid != null) {
-					call = CallFactory.getCall(ucid);
-					MakingPost post = new MakingPost(call, domain);
-					log.info("AAADEVTTSANDPLAY MakePost With Call");
-					status = post.makingPostWithCall(call);
-				} else {
-					MakingPost post = new MakingPost(domain);
-					log.info("AAADEVTTSANDPLAY MakePost Without Call");
-					status = post.makingPOST();
+				if (voice.equals("pt-BR")) {
+					voiceGoogle = "pt-BR";
+					voiceNameGoogle = "pt-BR-Standard-A";
 				}
-				log.info("AAADEVTTSANDPLAY Status" + status[0]);
-				if (status[0].equals("ok")) {
-
-					mediaFileURI = "http://"
-							+ domain
-							+ "/services/AAADEVLOGGER/FileSaveServlet/web/RecordParticipant/"
-							+ status[1];
-					log.info("AAADEVTTSANDPLAY " + mediaFileURI);
-					// mediaFileURI = formUrl() + status[1];
-
-				} else {
-
-					throw new IllegalArgumentException(
-							"No se ha realizado el POST al Laboratorio correspondiente");
+				if(voice.equals("en-US")){
+					voiceGoogle = "en-US";
+					voiceNameGoogle = "en-US-Wavenet-C";
 				}
-
-				/*
-				 * CATCH TRY TTS
-				 */
-			} catch (Exception e) {
-				JSONObject json = new JSONObject();
-				json.put("status", e.toString());
-				return e;
+				
+				Google request = new Google();
+				JSONObject jsonGoogle = new JSONObject();
+				jsonGoogle = request.googleTTS(aes.encrypt(mediaFileURI), aes.encrypt(voiceGoogle), aes.encrypt(voiceNameGoogle));
+				if(jsonGoogle.has("status") && (jsonGoogle.getString("status").equals("ok"))){
+					mediaFileURI = "http://10.0.0.10/services/AAADEVCloudServices/EngagementDesignerGoogleCoudTTS.wav";
+				}
+				if(jsonGoogle.has("error") && (jsonGoogle.getString("error").equals("sin Audio Content"))){
+					throw new Exception("Error al crear archivo de audio.");
+				}
 			}
-			/*
-			 * Final Text To Speech
-			 */
+			if(cloudProvider.equals("IBM")){
+				String voiceNameIBM = null;
+				if (voice.equals("es-ES")){
+					BuscarYRemplazarAcentos español = new BuscarYRemplazarAcentos();
+					mediaFileURI = español.Español(mediaFileURI);
+					voiceNameIBM = "es-ES_LauraVoice";
+				}
+
+				if (voice.equals("pt-BR")) {
+					BuscarYRemplazarAcentos portugues = new BuscarYRemplazarAcentos();
+					mediaFileURI = portugues.Portugues(mediaFileURI);
+					voiceNameIBM = "pt-BR_IsabelaVoice";
+				}
+				if(voice.equals("en-US")){
+					voiceNameIBM = "en-US_AllisonVoice";
+				}
+				IBM request = new IBM();
+				JSONObject jsonIbm = new JSONObject();
+				jsonIbm = request.ibmTTS(aes.encrypt(mediaFileURI), aes.encrypt(voiceNameIBM));
+				if(jsonIbm.has("status") && (jsonIbm.getString("status").equals("ok"))){
+					mediaFileURI = "http://10.0.0.10/services/AAADEVCloudServices/EngagementDesignerIBMCloudTTS.wav";
+				}
+				if(jsonIbm.has("status") && (jsonIbm.getString("status").equals("error"))){
+					throw new Exception("Error al crear archivo de audio.");
+				}
+			}
+			
+			
 		}
-		if (log.isFineEnabled()) {
-			log.fine("Media Prompt to be played is:" + mediaFileURI);
-		}
+		
 		String interruptibility = (String) get("interruptibility");
 		if ((interruptibility == null) || (interruptibility.isEmpty())) {
 			interruptibility = model.getInterruptibility();
@@ -532,39 +440,10 @@ public class TTSANDPLAYExecution extends NodeInstance {
 		return null;
 	}
 
-	/*
-	 * TextToSpeech Methods
-	 */
-	public static InputStream reWriteWaveHeader(InputStream is)
-			throws IOException {
-		byte[] audioBytes = toByteArray(is);
-		filesize = audioBytes.length - 8;
 
-		writeInt(filesize, audioBytes, 4);
-		writeInt(filesize - 8, audioBytes, 74);
 
-		return new ByteArrayInputStream(audioBytes);
-	}
 
-	private static void writeInt(int value, byte[] array, int offset) {
-		for (int i = 0; i < 4; i++) {
-			array[offset + i] = (byte) (value >>> (8 * i));
-		}
-	}
 
-	public static byte[] toByteArray(InputStream is) throws IOException {
-		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-
-		int nRead;
-		byte[] data = new byte[16384]; // 4 kb
-
-		while ((nRead = is.read(data, 0, data.length)) != -1) {
-			buffer.write(data, 0, nRead);
-		}
-
-		buffer.flush();
-		return buffer.toByteArray();
-	}
 
 	/*
 	 * End TextToSpeech Methods

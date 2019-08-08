@@ -1,4 +1,4 @@
-package com.avaya.AAADEVAI;
+package com.avaya.AAADEVAI.PlayAndCollect.TTS;
 
 import com.roobroo.bpm.model.BpmNode;
 import com.roobroo.bpm.util.WFUtil;
@@ -26,42 +26,23 @@ public class PlayAndCollectModel extends BpmNode {
 	/*
 	 * Text To Speech
 	 */
-	private String messageBody;
-	private String userName;
-	private String password;
-	private String voice;
-	private String domain;
+	private String language;
+	private String cloudProvider;
 
-	public String getMessageBody() {
-		return messageBody;
+	public String getLanguage() {
+		return language;
 	}
 
-	public void setMessageBody(String messageBody) {
-		this.messageBody = messageBody;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getCloudProvider() {
+		return cloudProvider;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getVoice() {
-		return voice;
-	}
-
-	public void setVoice(String voice) {
-		this.voice = voice;
+	public void setCloudProvider(String cloudProvider) {
+		this.cloudProvider = cloudProvider;
 	}
 
 	public String getHandle() {
@@ -221,13 +202,5 @@ public class PlayAndCollectModel extends BpmNode {
 			}
 		}
 		return (super.validateProperties(w, e)) && (isValid);
-	}
-
-	public String getDomain() {
-		return domain;
-	}
-
-	public void setDomain(String domain) {
-		this.domain = domain;
 	}
 }

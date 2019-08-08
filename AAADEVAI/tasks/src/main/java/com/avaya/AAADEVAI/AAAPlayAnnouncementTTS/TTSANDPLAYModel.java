@@ -1,14 +1,11 @@
-package com.avaya.AAADEVAI;
+package com.avaya.AAADEVAI.AAAPlayAnnouncementTTS;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import com.roobroo.bpm.model.BpmNode;
-import com.roobroo.bpm.util.WFUtil;
-
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.roobroo.bpm.model.BpmNode;
 
 public class TTSANDPLAYModel extends BpmNode {
 
@@ -38,44 +35,18 @@ public class TTSANDPLAYModel extends BpmNode {
 	private String handle;
 	private String participant;
 	/*
-	 * Text To Speech
+	 * Cloud Provider
 	 */
-	private String messageBody;
-	private String userName;
-	private String password;
-	private String voice;
-	private String domain;
+	private String language;
+	private String cloudProvider;
 
-	public String getMessageBody() {
-		return messageBody;
+
+	public String getCloudProvider() {
+		return cloudProvider;
 	}
 
-	public void setMessageBody(String messageBody) {
-		this.messageBody = messageBody;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getVoice() {
-		return voice;
-	}
-
-	public void setVoice(String voice) {
-		this.voice = voice;
+	public void setCloudProvider(String cloudProvider) {
+		this.cloudProvider = cloudProvider;
 	}
 
 	public String getParticipant() {
@@ -187,7 +158,7 @@ public class TTSANDPLAYModel extends BpmNode {
 	public ArrayList<String> createMediaURIsArray(String mediaURIAdditional)
 			throws Exception {
 		JSONArray mediaURIArray = getMediaURIsAsJsonArray(mediaURIAdditional);
-		ArrayList<String> mediaURIs = new ArrayList();
+		ArrayList<String> mediaURIs = new ArrayList<String>();
 		if (mediaURIArray == null) {
 			return mediaURIs;
 		}
@@ -218,12 +189,12 @@ public class TTSANDPLAYModel extends BpmNode {
 		return value;
 	}
 
-	public String getDomain() {
-		return domain;
+	public String getLanguage() {
+		return language;
 	}
 
-	public void setDomain(String domain) {
-		this.domain = domain;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 }

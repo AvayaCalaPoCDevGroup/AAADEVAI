@@ -1,4 +1,4 @@
-package com.avaya.AAADEVAI;
+package com.avaya.AAADEVAI.Util;
 
 import com.avaya.app.entity.NodeInstance;
 import com.avaya.collaboration.call.Call;
