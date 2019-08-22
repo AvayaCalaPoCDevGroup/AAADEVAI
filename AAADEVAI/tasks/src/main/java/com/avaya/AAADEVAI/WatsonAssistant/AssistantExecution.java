@@ -1,4 +1,4 @@
-package com.avaya.AAADEVAI;
+package com.avaya.AAADEVAI.WatsonAssistant;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,7 +12,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClients;
@@ -25,9 +25,9 @@ import com.avaya.collaboration.ssl.util.SSLProtocolType;
 import com.avaya.collaboration.ssl.util.SSLUtilityFactory;
 import com.roobroo.bpm.model.BpmNode;
 
-//Detail on NodeInstance is provided in the section NodeInstance API class.
-@SuppressWarnings({ "serial", "deprecation" })
 public class AssistantExecution extends NodeInstance {
+
+	private static final long serialVersionUID = 1L;
 
 	public AssistantExecution(Instance instance, BpmNode node) {
 		super(instance, node);
@@ -40,12 +40,38 @@ public class AssistantExecution extends NodeInstance {
 		String textAssistant = (String) get("textAssistant");
 		if ((textAssistant == null) || (textAssistant.isEmpty())) {
 			textAssistant = assistant.getTextAssistant();
+			if(textAssistant == null || textAssistant.isEmpty()){
+				throw new IllegalArgumentException("The Text Cannot Be Empty...");
+			}
 		}
-		String userNameAssistant = assistant.getUserNameAssistant();
-		String passwordAssistant = "ZIrFXSd1exPG";
 		
-		String workSpaceIdAssistant = assistant.getWorkSpaceIdAssistant();
+		String userNameAssistant = (String)get("userNameAssistant");
+		if(userNameAssistant == null || userNameAssistant.isEmpty()){
+			userNameAssistant = assistant.getUserNameAssistant();
+			if(userNameAssistant == null || userNameAssistant.isEmpty()){
+				throw new IllegalArgumentException("User Name Cannot Be Empty...");
+			}
+		}
+		
+		String passwordAssistant = (String)get("passwordAssistant");
+		if(passwordAssistant == null || passwordAssistant.isEmpty()){
+			passwordAssistant = assistant.getPasswordAssistant();
+			if(passwordAssistant == null || passwordAssistant.isEmpty()){
+				passwordAssistant = "ZIrFXSd1exPG";
+			}
+		}
+		
+		
+		String workSpaceIdAssistant = (String)get("workSpaceIdAssistant");
+		if(workSpaceIdAssistant == null || workSpaceIdAssistant.isEmpty()){
+			workSpaceIdAssistant = assistant.getWorkSpaceIdAssistant();
+			if(workSpaceIdAssistant == null || workSpaceIdAssistant.isEmpty()){
+				throw new IllegalArgumentException("Work Space ID Cannot Be Empty...");
+			}
+		}
 
+		
+		
 		final String[] resultAssistant = callWatsonAssitant(textAssistant,
 				userNameAssistant, passwordAssistant, workSpaceIdAssistant);
 		if (resultAssistant == null) {
@@ -76,10 +102,10 @@ public class AssistantExecution extends NodeInstance {
 			final String URI = "https://gateway.watsonplatform.net/assistant/api/v1/workspaces/"
 					+ workSpaceIdAssistant + "/message?version=2018-07-10";
 
-			final HttpClient clientAssistant = HttpClients.custom()
-					.setSslcontext(sslContextAssistant)
-					.setHostnameVerifier(new AllowAllHostnameVerifier())
-					.build();
+			final HttpClient client = HttpClients.custom()
+					.setSSLContext(sslContextAssistant)
+					.setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE).build();
+			
 			final HttpPost postMethodAssistant = new HttpPost(URI);
 			postMethodAssistant.addHeader("Accept", "application/json");
 			postMethodAssistant.addHeader("Content-Type", "application/json");
@@ -97,7 +123,7 @@ public class AssistantExecution extends NodeInstance {
 					messageBodyAssistant);
 			postMethodAssistant.setEntity(conversationEntityAssistant);
 
-			final HttpResponse responseAssistant = clientAssistant
+			final HttpResponse responseAssistant = client
 					.execute(postMethodAssistant);
 
 			final BufferedReader inputStreamAssistant = new BufferedReader(

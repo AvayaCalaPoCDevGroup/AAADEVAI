@@ -142,8 +142,8 @@
     "serviceName": "CollabDesigner",
     "custom": "true",
     "nodeType": "activity",
-    "modelClass": "com.avaya.AAADEVAI.AssistantModel",
-    "executionClass": "com.avaya.AAADEVAI.AssistantExecution",
+    "modelClass": "com.avaya.AAADEVAI.WatsonAssistant.AssistantModel",
+    "executionClass": "com.avaya.AAADEVAI.WatsonAssistant.AssistantExecution",
     "mapping": "[\"input\", \"output\"]",
     "properties": [
         {
@@ -183,11 +183,20 @@
               title: InputSchemaAssistant,
               type: object,
               properties: {
-                textAssistant: {
-                      type: string
-        }
-    }
-}",
+                            textAssistant: {
+                                type: string
+                            },
+                            userNameAssistant: {
+                                type: string
+                            },
+                            passwordAssistant: {
+                                type: string
+                            },
+                            workSpaceIdAssistant: {
+                                type: string
+                            }
+                        }
+                    }",
           "output_schema": "{
                   title: OutputSchema,
                   type: object,

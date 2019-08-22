@@ -1,4 +1,4 @@
-package com.avaya.AAADEVAI;
+package com.avaya.AAADEVAI.WatsonAssistant;
 
 
 import java.util.List;
