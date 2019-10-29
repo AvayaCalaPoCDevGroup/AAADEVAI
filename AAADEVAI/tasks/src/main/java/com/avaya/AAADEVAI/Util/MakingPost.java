@@ -40,15 +40,12 @@ public class MakingPost {
 	private transient final Logger logger = Logger.getLogger(MakingPost.class);
 	public static String nombreWav = null;
 	public static String nombreWavfile = null;
-	private static String domain;
 	
 	public MakingPost(final Call call, final String domain) {
 		this.call = call;
-		this.domain = domain;
 	}
 	
 	public MakingPost(final String domain) {
-		this.domain = domain;
 	}
 
 	public MakingPost() {
@@ -64,7 +61,7 @@ public class MakingPost {
 					.createSSLContext(protocolType);
 
 			// DefaultHttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost("http://"+domain+"/services/AAADEVLOGGER/InputLogger/");
+			HttpPost httppost = new HttpPost("http://"+Constants.getFQDN()+"/services/AAADEVLOGGER/InputLogger/");
 
 			final HttpClient httpclient = HttpClients.custom()
 					.setSslcontext(sslContextTraductor)
@@ -96,7 +93,7 @@ public class MakingPost {
 			
 
 			StringBody comment = new StringBody(nombreWavfile);
-			StringBody comment2 = new StringBody("http://"+domain+"/services/AAADEVLOGGER/web/RecordParticipant/");
+			StringBody comment2 = new StringBody("http://"+Constants.getFQDN()+"/services/AAADEVLOGGER/web/RecordParticipant/");
 			MultipartEntity reqEntity = new MultipartEntity();
 			reqEntity.addPart("rec_data", bin);
 			reqEntity.addPart("recFileName", comment);
@@ -124,7 +121,7 @@ public class MakingPost {
 			HttpPost httppost = new HttpPost(
 //					"https://breeze2-132.collaboratory.avaya.com/services/AAADEVURIEL_WAV3/ControladorGrabaciones/");
 //			HttpPost httppost = new HttpPost(
-					"http://"+domain+"/services/AAADEVLOGGER/InputLogger/");
+					"http://"+Constants.getFQDN()+"/services/AAADEVLOGGER/InputLogger/");
 
 			 /*
 			 * extensión a la que se llama
@@ -167,7 +164,7 @@ public class MakingPost {
 
 			StringBody comment = new StringBody(nombreWavfile);
 			StringBody comment2 = new StringBody(
-					"http://"+domain+"/services/AAADEVLOGGER/web/RecordParticipant/");
+					"http://"+Constants.getFQDN()+"/services/AAADEVLOGGER/web/RecordParticipant/");
 			MultipartEntity reqEntity = new MultipartEntity();
 			reqEntity.addPart("rec_data", bin);
 			reqEntity.addPart("recFileName", comment);
@@ -197,7 +194,7 @@ public class MakingPost {
 				.setHostnameVerifier(new AllowAllHostnameVerifier())
 				.build();
 		HttpDelete httpdelete = new HttpDelete(
-				"http://"+domain+"/services/AAADEVLOGGER/InputLogger/web/RecordParticipant/"+nombreWavfile);
+				"http://"+Constants.getFQDN()+"/services/AAADEVLOGGER/InputLogger/web/RecordParticipant/"+nombreWavfile);
 		
 		CloseableHttpResponse response = httpclient.execute(httpdelete);
 		

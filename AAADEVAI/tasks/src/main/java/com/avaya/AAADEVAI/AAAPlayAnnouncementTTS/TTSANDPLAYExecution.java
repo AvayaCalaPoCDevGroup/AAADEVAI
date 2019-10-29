@@ -14,6 +14,7 @@ import com.avaya.AAADEVAI.AAAPlayAnnouncementTTS.Https.Google;
 import com.avaya.AAADEVAI.AAAPlayAnnouncementTTS.Https.IBM;
 import com.avaya.AAADEVAI.Security.AES;
 import com.avaya.AAADEVAI.Util.CommTaskUtil;
+import com.avaya.AAADEVAI.Util.Constants;
 import com.avaya.AAADEVAI.Util.WFMediaListener;
 import com.avaya.AAADEVAI.Util.WFMediaUtil;
 import com.avaya.app.entity.Instance;
@@ -148,7 +149,7 @@ public class TTSANDPLAYExecution extends NodeInstance {
 				JSONObject jsonGoogle = new JSONObject();
 				jsonGoogle = request.googleTTS(aes.encrypt(mediaFileURI), aes.encrypt(voiceGoogle), aes.encrypt(voiceNameGoogle));
 				if(jsonGoogle.has("status") && (jsonGoogle.getString("status").equals("ok"))){
-					mediaFileURI = "http://10.0.0.10/services/AAADEVCloudServices/EngagementDesignerGoogleCoudTTS.wav";
+					mediaFileURI = "http://"+Constants.getFQDN()+"/services/AAADEVCloudServices/EngagementDesignerGoogleCoudTTS.wav";
 				}
 				if(jsonGoogle.has("error") && (jsonGoogle.getString("error").equals("sin Audio Content"))){
 					throw new Exception("Error al crear archivo de audio.");
@@ -174,7 +175,7 @@ public class TTSANDPLAYExecution extends NodeInstance {
 				JSONObject jsonIbm = new JSONObject();
 				jsonIbm = request.ibmTTS(aes.encrypt(mediaFileURI), aes.encrypt(voiceNameIBM));
 				if(jsonIbm.has("status") && (jsonIbm.getString("status").equals("ok"))){
-					mediaFileURI = "http://10.0.0.10/services/AAADEVCloudServices/EngagementDesignerIBMCloudTTS.wav";
+					mediaFileURI = "http://"+Constants.getFQDN()+"/services/AAADEVCloudServices/EngagementDesignerIBMCloudTTS.wav";
 				}
 				if(jsonIbm.has("status") && (jsonIbm.getString("status").equals("error"))){
 					throw new Exception("Error al crear archivo de audio.");

@@ -46,9 +46,6 @@ public class SpeechToTextExecution extends NodeInstance {
 		if ((language == null) || (language.isEmpty())) {
 			language = speech.getLanguage();
 		}
-		
-		
-		
 
 		String password = "AIzaSyAb8txQ6r49Cj67Bq4sJi9QE_k1CJusVYU";
 

@@ -23,7 +23,7 @@ public class AnnounceAndBlockMediaListener
 {
   public AnnounceAndBlockMediaListener()
   {
-    this.uuidMap = new ConcurrentHashMap();
+    this.uuidMap = new ConcurrentHashMap<UUID, Participant>();
   }
   
   private final Logger log = LoggerFactory.getLogger(AnnounceAndBlockMediaListener.class);

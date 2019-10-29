@@ -1,7 +1,6 @@
 package com.avaya.AAADEVAI;
 
 import com.avaya.workflow.env.CommonFactory;
-import com.avaya.workflow.env.Environment;
 
 public class ServiceAttributeManager
 {
