@@ -1,6 +1,9 @@
 package com.avaya.AAADEVAI.WatsonAssistantConversation.DeleteSession;
 
+import java.util.List;
+
 import com.roobroo.bpm.model.BpmNode;
+import com.roobroo.bpm.util.WFUtil;
 
 public class DeleteSessionModel extends BpmNode{
 
@@ -9,10 +12,6 @@ public class DeleteSessionModel extends BpmNode{
 	}
 
 	private static final long serialVersionUID = 1L;
-	private String userNameDeleteSession;
-	private String passwordDeleteSession;
-	private String assistantIdDeleteSession;
-	private String versionDeleteSession;
 	private String sessionDeleteSession;
 	
 	public String getSessionDeleteSession() {
@@ -21,29 +20,15 @@ public class DeleteSessionModel extends BpmNode{
 	public void setSessionDeleteSession(String sessionDeleteSession) {
 		this.sessionDeleteSession = sessionDeleteSession;
 	}
-	public String getUserNameDeleteSession() {
-		return userNameDeleteSession;
-	}
-	public void setUserNameDeleteSession(String userNameDeleteSession) {
-		this.userNameDeleteSession = userNameDeleteSession;
-	}
-	public String getPasswordDeleteSession() {
-		return passwordDeleteSession;
-	}
-	public void setPasswordDeleteSession(String passwordDeleteSession) {
-		this.passwordDeleteSession = passwordDeleteSession;
-	}
-	public String getAssistantIdDeleteSession() {
-		return assistantIdDeleteSession;
-	}
-	public void setAssistantIdDeleteSession(String assistantIdDeleteSession) {
-		this.assistantIdDeleteSession = assistantIdDeleteSession;
-	}
-	public String getVersionDeleteSession() {
-		return versionDeleteSession;
-	}
-	public void setVersionDeleteSession(String versionDeleteSession) {
-		this.versionDeleteSession = versionDeleteSession;
-	}
 	
+	@Override
+    public boolean validateProperties(List<String> w, List<String> e) {
+        boolean isValid = true;
+        if ((!WFUtil.validateMapping(w, e, getDataInputAssociations(), "sessionDeleteSession"))
+                && (!WFUtil.validateEmptyProperty(sessionDeleteSession, "sessionDeleteSession", e))) {
+            isValid = false;
+         
+        }
+        return super.validateProperties(w, e) && isValid;
+	}
 }

@@ -3,6 +3,7 @@ package com.avaya.AAADEVAI.AAAPlayAnnouncementTTS.Https;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.SSLContext;
 
@@ -32,7 +33,7 @@ public class IBM {
 		final HttpClient client = HttpClients.custom()
 				.setSSLContext(sslContext)
 				.setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE).build();
-		final HttpPost postMethod = new HttpPost(Constants.IBM_BREEZE_END_POINT);
+		final HttpPost postMethod = new HttpPost(Constants.IBM_BREEZE_END_POINT_TTS);
 		MultipartEntityBuilder builder = MultipartEntityBuilder.create();  
 		
 		StringBody textBody = new StringBody(text, ContentType.TEXT_PLAIN);
@@ -47,7 +48,8 @@ public class IBM {
     	final HttpResponse response = client.execute(postMethod);
 
 		final BufferedReader inputStream = new BufferedReader(
-				new InputStreamReader(response.getEntity().getContent()));
+				new InputStreamReader(response.getEntity().getContent(),
+						StandardCharsets.ISO_8859_1));
 
 		String line = "";
 		final StringBuilder result = new StringBuilder();

@@ -116,7 +116,7 @@ public class TTSANDPLAYExecution extends NodeInstance {
 			if ((voice == null) || (voice.isEmpty())) {
 				voice = model.getLanguage();
 				if(voice == null || voice.isEmpty()){
-					voice = "es";
+					voice = "es-ES";
 				}
 			}
 
